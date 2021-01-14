@@ -8283,10 +8283,10 @@
         "../src/app.service.ts"
       ],
       "../src/config/config.service.ts": [
-        "../../../../node_modules/@nestjs/typeorm/index.d.ts"
+        "../node_modules/@nestjs/typeorm/index.d.ts"
       ],
       "../src/note/dto/update-note.dto.ts": [
-        "../../../../node_modules/@nestjs/mapped-types/index.d.ts",
+        "../node_modules/@nestjs/mapped-types/index.d.ts",
         "../src/note/dto/create-note.dto.ts"
       ],
       "../src/note/note.controller.ts": [
