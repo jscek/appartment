@@ -18,6 +18,7 @@ import { BackgroudSpaceComponent } from './components/backgroud-space/backgroud-
 import { NoteComponent } from './components/note/note.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
     BackgroudSpaceComponent,
     NoteComponent,
     LoginPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
