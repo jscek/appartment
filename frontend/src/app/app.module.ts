@@ -24,6 +24,7 @@ import { FlatsPageComponent } from './components/user-pages/flats-page/flats-pag
 import { AssignmentsPageComponent } from './components/user-pages/assignments-page/assignments-page.component';
 import { RankingPageComponent } from './components/user-pages/ranking-page/ranking-page.component';
 import { ShoppingPageComponent } from './components/user-pages/shopping-page/shopping-page.component';
+import { BillingsPageComponent } from './components/user-pages/billings-page/billings-page.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ShoppingPageComponent } from './components/user-pages/shopping-page/sho
     FlatsPageComponent,
     AssignmentsPageComponent,
     RankingPageComponent,
-    ShoppingPageComponent
+    ShoppingPageComponent,
+    BillingsPageComponent
   ],
   imports: [
     BrowserModule,

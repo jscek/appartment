@@ -8,6 +8,7 @@ import {AssignmentsPageComponent} from './components/user-pages/assignments-page
 import {ShoppingPageComponent} from './components/user-pages/shopping-page/shopping-page.component'
 import {RankingPageComponent} from './components/user-pages/ranking-page/ranking-page.component'
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {BillingsPageComponent} from './components/user-pages/billings-page/billings-page.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'flats', component: FlatsPageComponent},
   { path: 'assignments', component: AssignmentsPageComponent},
   { path: 'shopping', component: ShoppingPageComponent},
+  { path: 'billings', component: BillingsPageComponent},
   { path: 'ranking', component: RankingPageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];
