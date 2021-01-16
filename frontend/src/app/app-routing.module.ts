@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {LoginPageComponent} from './components/login-page/login-page.component';
-import {ProfilePageComponent} from './components/profile-page/profile-page.component';
+import {LoginPageComponent} from './components/user-pages/login-page/login-page.component';
+import {ProfilePageComponent} from './components/user-pages/profile-page/profile-page.component';
+import {FlatsPageComponent} from './components/user-pages/flats-page/flats-page.component'
+import {AssignmentsPageComponent} from './components/user-pages/assignments-page/assignments-page.component'
+import {ShoppingPageComponent} from './components/user-pages/shopping-page/shopping-page.component'
+import {RankingPageComponent} from './components/user-pages/ranking-page/ranking-page.component'
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginPageComponent},
   { path: 'profile', component: ProfilePageComponent},
+  { path: 'flats', component: FlatsPageComponent},
+  { path: 'assignments', component: AssignmentsPageComponent},
+  { path: 'shopping', component: ShoppingPageComponent},
+  { path: 'ranking', component: RankingPageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];
 
