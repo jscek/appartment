@@ -1,1 +1,54 @@
-<p>login-page works!</p>
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+    <app-page-card>
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Login"> 
+                <div class="container panel">
+
+                          <form>
+                            <mat-card-content>
+                              <mat-form-field class="full-width">
+                                <input matInput type="text" name="loginDataEmail" placeholder="Email">
+                              </mat-form-field>
+                      
+                              <mat-form-field class="full-width">
+                                <input matInput type="password" name="loginDatapassword" placeholder="Password">
+                              </mat-form-field>
+                            </mat-card-content>
+                            <button mat-stroked-button (click)="login()">
+                                Sign In
+                            </button>
+                          </form>
+                  
+                  </div>    
+            </mat-tab>
+            <mat-tab label="Register">
+                <div class="container panel">
+
+                      
+                          <form>
+                      
+                            <mat-card-content>
+                      
+                              <mat-form-field class="full-width">
+                                <input matInput type="email" name="registerDataEmail" placeholder="Email">
+                              </mat-form-field>
+                      
+                              <mat-form-field class="full-width">
+                                <input matInput type="password" name="registerDataPassword" placeholder="Password">
+                              </mat-form-field>
+                      
+                            </mat-card-content>
+                      
+                            <button mat-stroked-button (click)="register()">
+                                Sign Up
+                            </button>
+                      
+                          </form>
+
+                    </div>
+
+            </mat-tab>
+          </mat-tab-group>
+
+    </app-page-card>
+</div>

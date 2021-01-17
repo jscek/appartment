@@ -9,6 +9,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +28,7 @@ import { AssignmentsPageComponent } from './components/user-pages/assignments-pa
 import { RankingPageComponent } from './components/user-pages/ranking-page/ranking-page.component';
 import { ShoppingPageComponent } from './components/user-pages/shopping-page/shopping-page.component';
 import { BillingsPageComponent } from './components/user-pages/billings-page/billings-page.component';
+import { PageCardComponent } from './components/page-card/page-card.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,8 @@ import { BillingsPageComponent } from './components/user-pages/billings-page/bil
     AssignmentsPageComponent,
     RankingPageComponent,
     ShoppingPageComponent,
-    BillingsPageComponent
+    BillingsPageComponent,
+    PageCardComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,9 @@ import { BillingsPageComponent } from './components/user-pages/billings-page/bil
     MatGridListModule,
     MatMenuModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatTabsModule,
+    MatInputModule,
     DragDropModule
   ],
   providers: [],
