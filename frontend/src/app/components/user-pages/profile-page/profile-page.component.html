@@ -1,1 +1,32 @@
-<p>profile-page works!</p>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
+    <div fxFlex="50%">
+        <app-page-card>
+            <mat-card-header>
+                <div mat-card-avatar class="avatar-image"></div>
+                <mat-card-title>Janek Kosa</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-card-title>Flatmates:</mat-card-title>
+                <mat-card-subtitle>Jacex Polsa</mat-card-subtitle>
+                <mat-card-subtitle>Mefju Szecynpol</mat-card-subtitle>
+              </mat-card-content>
+        </app-page-card>
+    </div>
+    <div fxFlex="50%">
+        <app-page-card>
+            <mat-card-subtitle>Flat notes:</mat-card-subtitle>
+            <div class="note-boundary">
+                <app-note></app-note>
+                
+                <app-note></app-note>
+            
+                <app-note></app-note>
+            
+                <app-note></app-note>
+
+                <app-note></app-note>            
+            </div>
+        </app-page-card>
+    </div>
+</div>
+
