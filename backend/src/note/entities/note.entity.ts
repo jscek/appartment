@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Note {
@@ -16,4 +17,11 @@ export class Note {
 
     @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     updated_at: Date;
+
+    @ManyToOne(type => User)
+    @JoinColumn ({name: 'id'})
+    user: User
+
+    @Column({  type: "int", nullable: true })
+    user_Id: number;
 }
