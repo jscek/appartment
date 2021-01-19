@@ -29,6 +29,7 @@ import { RankingPageComponent } from './components/user-pages/ranking-page/ranki
 import { ShoppingPageComponent } from './components/user-pages/shopping-page/shopping-page.component';
 import { BillingsPageComponent } from './components/user-pages/billings-page/billings-page.component';
 import { PageCardComponent } from './components/page-card/page-card.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { PageCardComponent } from './components/page-card/page-card.component';
     RankingPageComponent,
     ShoppingPageComponent,
     BillingsPageComponent,
-    PageCardComponent
+    PageCardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,5 @@
-.avatar-image {
-  width: 150px;
-  height: 150px;
-  background-image: url('https://scontent-waw1-1.xx.fbcdn.net/v/t31.0-8/30420102_1788124121266457_3171397161646616647_o.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=Se8wCydwv4QAX8KDyJf&_nc_ht=scontent-waw1-1.xx&oh=c5c1df13f3cb6198cb6037cbb96eac26&oe=602ADB04');
-  background-size: cover;
-}
-
 .note-boundary {
+  min-height: 300px;
+  height: 100%;
   padding: 20px;
 }

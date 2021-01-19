@@ -1,30 +1,32 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
-    <div fxFlex="50%">
+    <div fxFlex="30%">
         <app-page-card>
-            <mat-card-header>
-                <div mat-card-avatar class="avatar-image"></div>
-                <mat-card-title>Janek Kosa</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <mat-card-title>Flatmates:</mat-card-title>
-                <mat-card-subtitle>Jacex Polsa</mat-card-subtitle>
-                <mat-card-subtitle>Mefju Szecynpol</mat-card-subtitle>
-              </mat-card-content>
+            <div fxLayout="column">
+                <img mat-card-image class="avatar-img" [src]="img_file">
+                <mat-card-title>Jan Kosiński</mat-card-title>
+                <mat-card-subtitle>jankos1195@gmail.com</mat-card-subtitle>
+            </div>
+            <mat-card-content>
+                <div style="margin-bottom: 2px; font-size: large">Flatmates:</div>
+                <mat-card-subtitle style="margin:0">Jacex Polsa</mat-card-subtitle>
+                <mat-card-subtitle style="margin:0">Mefju Szecynpol</mat-card-subtitle>
+            </mat-card-content>
+          
         </app-page-card>
     </div>
-    <div fxFlex="50%">
+    <div fxFlex="80%">
         <app-page-card>
             <mat-card-subtitle>Flat notes:</mat-card-subtitle>
             <div class="note-boundary">
-                <app-note></app-note>
                 
-                <app-note></app-note>
-            
-                <app-note></app-note>
-            
-                <app-note></app-note>
+                <app-note> That is my first note</app-note>
 
-                <app-note></app-note>            
+                <app-note> That is my second note</app-note>
+
+                <app-note> This is gonna jhas djha sjdah sjd ahsjd ahsjd ahds jashd jash dajds ajsdh ajsdh  be my last note for long text.</app-note>
+
+                <app-note> That is my last note</app-note>
+
             </div>
         </app-page-card>
     </div>
