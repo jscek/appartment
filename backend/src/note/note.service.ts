@@ -39,8 +39,8 @@ export class NoteService {
     return this.notesRepository.save(note);
   }
 
-  async remove(id: number) {
-    const note = await this.findOne(id);
-    this.notesRepository.remove(note);
+  async remove(id: number): Promise<void> {
+    console.log('Got note_Id to delete: ', id);
+    await this.notesRepository.delete(id);
   }
 }
