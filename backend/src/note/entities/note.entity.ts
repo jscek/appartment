@@ -27,14 +27,14 @@ export class Note {
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'id' })
-  user: User;
-
-  @Column({ type: 'int', nullable: true })
-  user_Id: number;
-
   @ManyToOne(() => NoteBoard, (note_board) => note_board.notes)
   @JoinColumn({ name: 'note_board_id' })
   note_board: NoteBoard;
+  // note *- user
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_Id' })
+  user: User;
+
+  @Column({ type: 'int', nullable: false })
+  user_Id: number;
 }

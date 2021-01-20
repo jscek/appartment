@@ -18,18 +18,20 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.usersRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.usersRepository.findOne(id)
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    console.log(updateUserDto);
+    return this.usersRepository.update(id, updateUserDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<void> {
+    console.log("Got user_Id to delete: ", id)
+    await this.usersRepository.delete(id);
   }
 }
