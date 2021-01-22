@@ -1,7 +1,8 @@
-import { IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateShoppingListDto {
 
     @IsNumber()
-    readonly flat_Id: number;
+    @IsNotEmpty()
+    readonly flat_id: number;
 }

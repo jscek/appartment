@@ -19,9 +19,9 @@ export class User {
 
   // user *- flat
   @ManyToOne(() => Flat)
-  @JoinColumn({ name: 'flat_Id' })
+  @JoinColumn({ name: 'flat_id' })
   flat: Flat;
 
   @Column({ type: 'int', nullable: true })
-  flat_Id: number;
+  flat_id: number;
 }

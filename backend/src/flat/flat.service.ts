@@ -33,7 +33,7 @@ export class FlatService {
   }
 
   async remove(id: number): Promise<void> {
-    console.log("Got flat_Id to delete: ", id)
+    console.log("Got flat_id to delete: ", id)
     await this.flatsRepository.delete(id);
   }
 }

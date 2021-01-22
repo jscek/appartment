@@ -7,7 +7,6 @@ import { UserModule } from './user/user.module';
 import { NotesModule } from './notes/notes.module';
 import { FlatModule } from './flat/flat.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { ShoppingListCategoryModule } from './shopping-list-category/shopping-list-category.module';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { ShoppingListCategoryModule } from './shopping-list-category/shopping-li
     UserModule,
     FlatModule,
     ShoppingListModule,
-    ShoppingListCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

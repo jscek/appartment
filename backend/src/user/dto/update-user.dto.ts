@@ -8,5 +8,5 @@ export class UpdateUserDto extends PartialType(
 ) {
     
     @IsNumber()
-    readonly flat_Id: number;
+    readonly flat_id: number;
 }

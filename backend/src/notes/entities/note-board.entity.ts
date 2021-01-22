@@ -6,6 +6,7 @@ export class NoteBoard {
   @PrimaryGeneratedColumn()
   id: number;
 
+  //Bords -* notes
   @OneToMany(() => Note, (note) => note.note_board)
   notes: Note[];
 }

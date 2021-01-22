@@ -1,6 +1,6 @@
 import { Flat } from "src/flat/entities/flat.entity";
-import { ShoppingListCategory } from "src/shopping-list-category/entities/shopping-list-category.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Item } from "./item.entity";
 
 
 @Entity()
@@ -11,14 +11,18 @@ export class ShoppingList {
 
     // shoppinglist *- flat
     @ManyToOne(type => Flat, )
-    @JoinColumn ({name: 'flat_Id'})
+    @JoinColumn ({name: 'flat_id'})
     flat: Flat
 
     @Column({ type: "int", nullable: false })
-    flat_Id: number;
+    flat_id: number;
 
-    // shopList  -* shopListCat
-    @OneToMany(type => ShoppingListCategory, shopListCat => shopListCat.shoppingList )
-    shopListCats: ShoppingListCategory[];
+    // shoppinList -* item
+    @OneToMany(() => Item, (item) => item.shoppingList)
+    items: Item[];
+
+    // // shopList  -* shopListCat
+    // @OneToMany(type => ShoppingListCategory, shopListCat => shopListCat.shoppingList )
+    // shopListCats: ShoppingListCategory[];
     
 }
