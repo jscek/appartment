@@ -53,7 +53,7 @@ export class NotesService {
   }
 
   async updateNote(noteId: number, updateNoteDto: UpdateNoteDto): Promise<Note> {
-    const note = await this.findOne(noteId);
+    await this.findOne(noteId);
 
     return this.notesRepository.save({ id: noteId, ...updateNoteDto });
   }

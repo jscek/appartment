@@ -24,11 +24,11 @@ export class ShoppingListService {
 
   async createItem(listId: number, createItemDto: CreateItemDto): Promise<Item> {
     const listSh = await this.shoppingListRepository.findOne(listId);
-    console.log("LIst Id", listId, " and list: ", listSh);
+    console.log('LIst Id', listId, ' and list: ', listSh);
     if (!listSh) {
       throw new NotFoundException(`ShoppingLIst #${listId} not found`);
     }
-    const item = this.itemRepository.create({shoppingList: listSh, ...createItemDto});
+    const item = this.itemRepository.create({ shoppingList: listSh, ...createItemDto });
     return this.itemRepository.save(item);
   }
 
@@ -42,15 +42,15 @@ export class ShoppingListService {
     return shoppingList.items;
   }
 
-  async findAllLists(){
+  async findAllLists() {
     return this.shoppingListRepository.find();
   }
 
-  async findAllItems(){
+  async findAllItems() {
     return this.itemRepository.find();
   }
 
-  async findOneItem(itemId: number): Promise<Item>{
+  async findOneItem(itemId: number): Promise<Item> {
     const listSh = await this.itemRepository.findOne(itemId);
     if (!listSh) {
       throw new NotFoundException(`Item #${itemId} not found`);
@@ -59,19 +59,19 @@ export class ShoppingListService {
   }
 
   async updateItem(itemId: number, updateItemDto: UpdateItemDto): Promise<Item> {
-    console.log("Updating item: ", updateItemDto);
+    console.log('Updating item: ', updateItemDto);
     const item = await this.findOneItem(itemId);
 
     return this.itemRepository.save({ id: itemId, ...updateItemDto });
   }
 
   async removeItem(itemId: number): Promise<void> {
-    console.log("Got itemId to delete: ", itemId)
+    console.log('Got itemId to delete: ', itemId);
     await this.itemRepository.delete(itemId);
   }
 
   async removeList(listId: number): Promise<void> {
-    console.log("Got listId to delete: ", listId)
+    console.log('Got listId to delete: ', listId);
     await this.shoppingListRepository.delete(listId);
   }
 }
