@@ -12,6 +12,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { ShoppingPageComponent } from './components/user-pages/shopping-page/sho
 import { BillingsPageComponent } from './components/user-pages/billings-page/billings-page.component';
 import { PageCardComponent } from './components/page-card/page-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EditProfileComponent } from './components/user-pages/profile-page/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ShoppingPageComponent,
     BillingsPageComponent,
     PageCardComponent,
-    FooterComponent
+    FooterComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MatFormFieldModule,
     MatTabsModule,
     MatInputModule,
+    MatDialogModule,
     DragDropModule
   ],
   providers: [],

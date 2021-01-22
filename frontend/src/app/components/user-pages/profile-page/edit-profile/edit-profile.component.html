@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Edit profile:</h1>
+<div mat-dialog-content>
+    <div class="wrapper">
+        <div class="file-upload">
+          <mat-icon>image_search</mat-icon>
+          <input #uploadFile type="file" (change)="onSelectFile($event)">
+        </div>
+      </div>
+    <div class="file-field input-field">
+      {{fileStatus}}
+    </div>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Your Name:</mat-label>
+        <input matInput placeholder="" value="Jan Kosiński">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button cdkFocusInitial (click)="onNoClick()">Save</button>
+</div>
