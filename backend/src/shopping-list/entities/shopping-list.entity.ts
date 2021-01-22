@@ -1,4 +1,4 @@
-import { Flat } from 'src/flat/entities/flat.entity';
+import { Flat } from '../../flats/entities/flat.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Item } from './item.entity';
 

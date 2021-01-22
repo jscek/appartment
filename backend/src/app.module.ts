@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { configService } from './config/config.service';
 import { UsersModule } from './users/users.module';
 import { NotesModule } from './notes/notes.module';
-import { FlatModule } from './flat/flat.module';
+import { FlatsModule } from './flats/flats.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -14,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     NotesModule,
     UsersModule,
-    FlatModule,
+    FlatsModule,
     ShoppingListModule,
     AuthModule,
   ],

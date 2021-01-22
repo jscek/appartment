@@ -6,7 +6,7 @@ import { UpdateFlatDto } from './dto/update-flat.dto';
 import { Flat } from './entities/flat.entity';
 
 @Injectable()
-export class FlatService {
+export class FlatsService {
   constructor(
     @InjectRepository(Flat)
     private flatsRepository: Repository<Flat>,

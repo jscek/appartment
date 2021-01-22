@@ -1,7 +1,6 @@
-// import { Note } from "src/note/entities/note.entity";
-import { NoteBoard } from 'src/notes/entities/note-board.entity';
-import { ShoppingList } from 'src/shopping-list/entities/shopping-list.entity';
-import { User } from 'src/users/entities/user.entity';
+import { NoteBoard } from '../../notes/entities/note-board.entity';
+import { ShoppingList } from '../../shopping-list/entities/shopping-list.entity';
+import { User } from '../../users/entities/user.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
