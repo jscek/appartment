@@ -7,6 +7,7 @@ import { UserModule } from './users/user.module';
 import { NotesModule } from './notes/notes.module';
 import { FlatModule } from './flat/flat.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
     UserModule,
     FlatModule,
     ShoppingListModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
