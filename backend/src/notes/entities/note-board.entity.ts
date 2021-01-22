@@ -1,12 +1,16 @@
 import { Note } from './note.entity';
-import { Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Flat } from 'src/flat/entities/flat.entity';
 
 @Entity()
 export class NoteBoard {
   @PrimaryGeneratedColumn()
   id: number;
 
-  //Bords -* notes
-  @OneToMany(() => Note, (note) => note.note_board)
+  @OneToMany(() => Note, (note) => note.noteBoard)
   notes: Note[];
+
+  @ManyToOne(() => Flat, (flat) => flat.noteBoard)
+  flat: Flat;
 }

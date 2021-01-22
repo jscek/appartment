@@ -27,9 +27,9 @@ export class Note {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @ManyToOne(() => NoteBoard, (note_board) => note_board.notes, { nullable: false })
+  @ManyToOne(() => NoteBoard, (noteBoard) => noteBoard.notes, { nullable: false })
   @JoinColumn({ name: 'note_board_id' })
-  note_board: NoteBoard;
+  noteBoard: NoteBoard;
   // note *- user
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
