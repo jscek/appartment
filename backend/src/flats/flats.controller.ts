@@ -3,7 +3,7 @@ import { FlatsService } from './flats.service';
 import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
 
-@Controller('flat')
+@Controller('flats')
 export class FlatsController {
   constructor(private readonly flatsService: FlatsService) {}
 
@@ -29,6 +29,6 @@ export class FlatsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.flatsService.remove(+id);
+    return this.flatsService.remove(id);
   }
 }
