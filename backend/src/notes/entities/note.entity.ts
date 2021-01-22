@@ -1,4 +1,4 @@
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 import { NoteBoard } from '../../notes/entities/note-board.entity';
 import {
   Column,
