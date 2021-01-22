@@ -12,6 +12,7 @@ export class EditProfileComponent implements OnInit {
   private maxImgBytes: number = 1048487;
 
   img: string = "";
+  fileStatusTag: string = "NONE"; 
   fileStatus: string = "";
 
   constructor(public dialogRef: MatDialogRef<EditProfileComponent>) { }
@@ -31,9 +32,11 @@ export class EditProfileComponent implements OnInit {
         if (byteSize > this.maxImgBytes) {
           this.img = null;
           this.fileStatus = "File upload has failed! The file can't be larger than 1MB."
+          this.fileStatusTag = "FAIL"
         } else {
           this.img = imgValue; 
           this.fileStatus = "File transfer was successful!"
+          this.fileStatusTag = "DONE"
         }
       };
     }

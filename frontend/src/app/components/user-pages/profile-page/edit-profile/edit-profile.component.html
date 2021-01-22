@@ -1,12 +1,15 @@
 <h1 mat-dialog-title>Edit profile:</h1>
 <div mat-dialog-content>
     <div class="wrapper">
-        <div class="file-upload">
-          <mat-icon>image_search</mat-icon>
-          <input #uploadFile type="file" (change)="onSelectFile($event)">
-        </div>
+        <button mat-fab (click)="uploadFile.click()" 
+          [ngClass]="{'file-upload' : fileStatusTag == 'NONE', 'file-upload-fail' : fileStatusTag == 'FAIL', 'file-upload-success' : fileStatusTag == 'DONE'}">
+          <mat-icon *ngIf="fileStatusTag == 'NONE'">image_search</mat-icon>
+          <mat-icon *ngIf="fileStatusTag == 'FAIL'">highlight_off</mat-icon>
+          <mat-icon *ngIf="fileStatusTag == 'DONE'">check_circle_outline</mat-icon>
+        </button>
       </div>
-    <div class="file-field input-field">
+      <input hidden #uploadFile type="file" (change)="onSelectFile($event)">
+    <div class="file-field">
       {{fileStatus}}
     </div>
     <mat-form-field style="width: 100%;">
