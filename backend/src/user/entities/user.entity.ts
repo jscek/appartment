@@ -1,28 +1,27 @@
-import { Note } from "src/note/entities/note.entity";
-import { Flat } from "src/flat/entities/flat.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Flat } from '../../flat/entities/flat.entity';
+import { Note } from '../../notes/entities/note.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: String;
+  @Column()
+  name: string;
 
-    @Column()
-    avatar: String;
+  @Column()
+  avatar: string;
 
-    // user -* note
-    @OneToMany(type => Note, note => note.user )
-    notes: Note[];
+  // user -* note
+  @OneToMany(() => Note, (note) => note.user)
+  notes: Note[];
 
-    // user *- flat
-    @ManyToOne(type => Flat, )
-    @JoinColumn ({name: 'flat_Id'})
-    flat: Flat
+  // user *- flat
+  @ManyToOne(() => Flat)
+  @JoinColumn({ name: 'flat_Id' })
+  flat: Flat;
 
-    @Column({ type: "int", nullable: true })
-    flat_Id: number;
+  @Column({ type: 'int', nullable: true })
+  flat_Id: number;
 }
- 

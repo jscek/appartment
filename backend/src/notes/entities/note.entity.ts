@@ -1,5 +1,5 @@
 import { User } from '../../user/entities/user.entity';
-import { NoteBoard } from 'src/note-board/entities/note-board.entity';
+import { NoteBoard } from '../../notes/entities/note-board.entity';
 import {
   Column,
   CreateDateColumn,
@@ -27,7 +27,7 @@ export class Note {
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
-  @ManyToOne(() => NoteBoard, (note_board) => note_board.notes)
+  @ManyToOne(() => NoteBoard, (note_board) => note_board.notes, { nullable: false })
   @JoinColumn({ name: 'note_board_id' })
   note_board: NoteBoard;
   // note *- user

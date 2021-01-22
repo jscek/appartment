@@ -1,4 +1,4 @@
-import { Note } from 'src/note/entities/note.entity';
+import { Note } from './note.entity';
 import { Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
