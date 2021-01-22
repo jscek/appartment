@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.file-upload {
+  background-color:#2590EB;
+  transition: all 1s;
+  color: #FFFFFF;
+}
+
+.file-upload:hover {
+  background-color: white;
+  color: #2590EB;
+}
+
+.file-upload-success {
+  background-color: #25eb67;
+  color: #FFFFFF;
+  transition: all 1s;
+}
+
+.file-upload-success:hover {
+  background-color: white;
+  color:#25eb67;
+}
+
+.file-upload-fail {
+  background-color: #eb2546;
+  color: #FFFFFF;
+  transition: all 1s;
+}
+
+.file-upload-fail:hover {
+  background-color: white;
+  color: #eb2546;
+}
+
+.file-field {
+  width: 100%;
+  margin-bottom: 25px;
+}

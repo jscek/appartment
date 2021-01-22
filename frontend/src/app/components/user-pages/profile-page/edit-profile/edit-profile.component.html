@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Edit profile:</h1>
+<div mat-dialog-content>
+    <div class="wrapper">
+        <button mat-fab (click)="uploadFile.click()" 
+          [ngClass]="{'file-upload' : fileStatusTag == 'NONE', 'file-upload-fail' : fileStatusTag == 'FAIL', 'file-upload-success' : fileStatusTag == 'DONE'}">
+          <mat-icon *ngIf="fileStatusTag == 'NONE'">image_search</mat-icon>
+          <mat-icon *ngIf="fileStatusTag == 'FAIL'">highlight_off</mat-icon>
+          <mat-icon *ngIf="fileStatusTag == 'DONE'">check_circle_outline</mat-icon>
+        </button>
+      </div>
+      <input hidden #uploadFile type="file" (change)="onSelectFile($event)">
+    <div class="file-field">
+      {{fileStatus}}
+    </div>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Your Name:</mat-label>
+        <input matInput placeholder="" value="Jan Kosiński">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button cdkFocusInitial (click)="onNoClick()">Save</button>
+</div>
