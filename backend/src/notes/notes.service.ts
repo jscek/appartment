@@ -21,13 +21,21 @@ export class NotesService {
     return this.noteBoardsRepository.save(noteBoard);
   }
 
-  async createNote(noteBoardId: number, createNoteDto: CreateNoteDto): Promise<Note> {
+  async createNote(
+    noteBoardId: number,
+    userId: number,
+    createNoteDto: CreateNoteDto,
+  ): Promise<Note> {
     const noteBoard = await this.noteBoardsRepository.findOne(noteBoardId);
     if (!noteBoard) {
       throw new NotFoundException(`NoteBoard #${noteBoardId} not found`);
     }
 
-    const note = this.notesRepository.create({ note_board: noteBoard, ...createNoteDto });
+    const note = this.notesRepository.create({
+      noteBoard: { id: noteBoardId },
+      user: { id: userId },
+      ...createNoteDto,
+    });
 
     return this.notesRepository.save(note);
   }
@@ -53,7 +61,7 @@ export class NotesService {
   }
 
   async updateNote(noteId: number, updateNoteDto: UpdateNoteDto): Promise<Note> {
-    const note = await this.findOne(noteId);
+    await this.findOne(noteId);
 
     return this.notesRepository.save({ id: noteId, ...updateNoteDto });
   }

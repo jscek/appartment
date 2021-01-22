@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Request,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateNoteBoardDto } from './dto/create-note-board.dto';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
@@ -18,12 +30,15 @@ export class NotesController {
     return this.notesService.findAll(noteBoardId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('boards/:noteBoardId')
   async createNote(
     @Param('noteBoardId') noteBoardId: number,
+    @Request() req,
     @Body() createNoteDto: CreateNoteDto,
   ) {
-    return this.notesService.createNote(noteBoardId, createNoteDto);
+    const userId = req.user.id;
+    return this.notesService.createNote(noteBoardId, userId, createNoteDto);
   }
 
   @Get(':noteId')

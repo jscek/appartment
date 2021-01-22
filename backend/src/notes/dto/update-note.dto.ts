@@ -1,4 +1,4 @@
-import { PartialType, OmitType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/mapped-types';
 import { CreateNoteDto } from './create-note.dto';
 
-export class UpdateNoteDto extends PartialType(OmitType(CreateNoteDto, ['user_id'] as const)) {}
+export class UpdateNoteDto extends PartialType(CreateNoteDto) {}

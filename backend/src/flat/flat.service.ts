@@ -5,10 +5,8 @@ import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
 import { Flat } from './entities/flat.entity';
 
-
 @Injectable()
 export class FlatService {
-  
   constructor(
     @InjectRepository(Flat)
     private flatsRepository: Repository<Flat>,
@@ -24,7 +22,7 @@ export class FlatService {
   }
 
   findOne(id: number) {
-    return this.flatsRepository.findOne(id)
+    return this.flatsRepository.findOne(id);
   }
 
   update(id: number, updateFlatDto: UpdateFlatDto) {
@@ -33,7 +31,7 @@ export class FlatService {
   }
 
   async remove(id: number): Promise<void> {
-    console.log("Got flat_id to delete: ", id)
+    console.log('Got flat_id to delete: ', id);
     await this.flatsRepository.delete(id);
   }
 }
