@@ -1,0 +1,37 @@
+.first-place {
+    background-color: rgb(255, 185, 0);
+    border: solid 1px white;
+    border-radius: 25px;
+}
+
+.second-place {
+    background-color: silver;
+    border: solid 1px white;
+    border-radius: 25px;
+}
+
+.third-place {
+    background-color: rgb(184, 91, 55);
+    border: solid 1px white;
+    border-radius: 25px;
+}
+
+.top-rank {
+    padding: 5px 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.first-name {
+    font-size: 35px;
+}
+
+.second-name {
+    font-size: 25px;
+}
+
+.third-name {
+    font-size: 25px;
+}
