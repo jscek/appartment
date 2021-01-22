@@ -1,24 +1,27 @@
 import { NoteBoard } from '../../notes/entities/note-board.entity';
 import { ShoppingList } from '../../shopping-list/entities/shopping-list.entity';
 import { User } from '../../users/entities/user.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Flat {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   name: string;
 
-  // flat  -* user
+  @Column({ nullable: false })
+  code: string;
+
   @OneToMany(() => User, (user) => user.flat)
   users: User[];
 
-  // flat  -* shoppinglist
-  @OneToMany(() => ShoppingList, (shoppingList) => shoppingList.flat)
-  shoppingList: ShoppingList[];
+  @OneToOne(() => ShoppingList, (shoppingList) => shoppingList.flat)
+  @JoinColumn({ name: 'shopping_list_id ' })
+  shoppingList: ShoppingList;
 
-  @OneToMany(() => NoteBoard, (noteBoard) => noteBoard.flat)
+  @OneToOne(() => NoteBoard, (noteBoard) => noteBoard.flat)
+  @JoinColumn({ name: 'note_baord_id' })
   noteBoard: NoteBoard;
 }

@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
 import { Flat } from './entities/flat.entity';
+import { nanoid } from 'nanoid';
 
 @Injectable()
 export class FlatsService {
@@ -12,9 +13,11 @@ export class FlatsService {
     private flatsRepository: Repository<Flat>,
   ) {}
 
-  create(createFlatDto: CreateFlatDto) {
+  async create(createFlatDto: CreateFlatDto): Promise<Flat> {
     const flat = this.flatsRepository.create(createFlatDto);
-    return this.flatsRepository.save(flat);
+    const code = nanoid(10);
+
+    return this.flatsRepository.save({ code, ...flat });
   }
 
   findAll() {
@@ -25,12 +28,21 @@ export class FlatsService {
     return this.flatsRepository.findOne(id);
   }
 
+  async findByCode(code: string): Promise<Flat> {
+    const flat = await this.flatsRepository.findOne({ code });
+    if (!flat) {
+      throw new NotFoundException(`Flat with code: ${code} not found`);
+    }
+
+    return flat;
+  }
+
   update(id: number, updateFlatDto: UpdateFlatDto) {
     console.log(updateFlatDto);
     return this.flatsRepository.update(id, updateFlatDto);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     console.log('Got flat_id to delete: ', id);
     await this.flatsRepository.delete(id);
   }
