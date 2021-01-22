@@ -2,33 +2,70 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ShoppingListService } from './shopping-list.service';
 import { CreateShoppingListDto } from './dto/create-shopping-list.dto';
 import { UpdateShoppingListDto } from './dto/update-shopping-list.dto';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
 
 @Controller('shopping-list')
 export class ShoppingListController {
   constructor(private readonly shoppingListService: ShoppingListService) {}
 
   @Post()
-  create(@Body() createShoppingListDto: CreateShoppingListDto) {
-    return this.shoppingListService.create(createShoppingListDto);
+  async createList(@Body() createShoppingListDto: CreateShoppingListDto) {
+    return this.shoppingListService.createList(createShoppingListDto);
+  }
+
+  @Post(':listId')
+  async createItem(
+    @Param('listId') listId: number,
+    @Body() createItemDto: CreateItemDto,
+  ) {
+    return this.shoppingListService.createItem(listId, createItemDto);
+  }
+
+  @Get(':listId/items')
+    async findAllItemsOfList(
+      @Param('listId') listId: number
+    ) {
+      return this.shoppingListService.findAllItemsOfList(listId);
   }
 
   @Get()
-  findAll() {
-    return this.shoppingListService.findAll();
+    async findAllLists(){
+      return this.shoppingListService.findAllLists();
+    }
+
+  @Get('items')
+    async findAllItems(){
+      return this.shoppingListService.findAllItems();
+    }
+
+  @Get('items/:itemId')
+    async findOneItem(
+      @Param('itemId') itemId: number,
+    ) {
+      return this.shoppingListService.findOneItem(itemId);
+    }
+
+  @Patch('items/:itemId')
+  async updateItem(
+    @Param('itemId') itemId: number, 
+    @Body() updateItemDto: UpdateItemDto
+  ) {
+    return this.shoppingListService.updateItem(itemId, updateItemDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.shoppingListService.findOne(+id);
+  @Delete('items/:itemId')
+  async removeItem(
+    @Param('itemId') itemId: number
+  ) {
+    return this.shoppingListService.removeItem(itemId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateShoppingListDto: UpdateShoppingListDto) {
-    return this.shoppingListService.update(+id, updateShoppingListDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.shoppingListService.remove(+id);
+  //nie dziala (trzeba wymyslic jak usunac wszyskie itemy razem z lista)
+  @Delete(':listId')
+  async removeList(
+    @Param('listId') listId: number
+  ) {
+    return this.shoppingListService.removeList(listId);
   }
 }
