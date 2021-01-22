@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingPageComponent implements OnInit {
 
+  shippingList: string[];
+
   constructor() { }
 
   ngOnInit(): void {

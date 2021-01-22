@@ -33,6 +33,9 @@ import { PageCardComponent } from './components/page-card/page-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { EditProfileComponent } from './components/user-pages/profile-page/edit-profile/edit-profile.component';
 import { NotePopupComponent } from './components/user-pages/profile-page/note-popup/note-popup.component';
+import { ProductRowComponent } from './components/user-pages/shopping-page/product-row/product-row.component';
+import { RankingRowComponent } from './components/user-pages/ranking-page/ranking-row/ranking-row.component';
+import { KingCrownComponent } from './components/atoms/king-crown/king-crown.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { NotePopupComponent } from './components/user-pages/profile-page/note-po
     PageCardComponent,
     FooterComponent,
     EditProfileComponent,
-    NotePopupComponent
+    NotePopupComponent,
+    ProductRowComponent,
+    RankingRowComponent,
+    KingCrownComponent
   ],
   imports: [
     BrowserModule,

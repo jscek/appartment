@@ -1,1 +1,24 @@
-<p>ranking-page works!</p>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+    fxLayoutGap="20px" fxLayoutAlign="center">
+    <div fxFlex="80%">
+        <app-page-card style="padding: 15px">
+            <mat-card-title style="margin:5px">Leaderboard:</mat-card-title>
+            <mat-card-content class="container" fxLayout="row" fxLayout.xs="column" 
+                fxLayoutAlign="center" style="margin-top: 20px; font-size: 18px">
+                
+                <app-ranking-row [place]="1" [points]="1500">
+                    Jan Kosiński
+                </app-ranking-row>
+
+                <app-ranking-row [place]="2" [points]="1200">
+                    Jaca Polex
+                </app-ranking-row>
+
+                <app-ranking-row [place]="3" [points]="1000">
+                    Szecyn Pol
+                </app-ranking-row>
+
+            </mat-card-content>
+        </app-page-card>
+    </div>     
+</div>

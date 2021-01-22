@@ -1,0 +1,12 @@
+<div *ngIf="isTopRank()" fxFlex="100%" style="margin: 25px;">
+    <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" 
+        fxLayoutGap="10px" fxLayoutAlign="begin">
+        <div class="top-rank" [ngClass]="{'first-place': place == 1, 'second-place': place == 2, 'third-place': place == 3}">
+            <app-king-crown></app-king-crown>
+            {{points}}
+        </div>
+        <div class="top-rank" [ngClass]="{'first-name': place == 1, 'second-name': place == 2, 'third-name': place == 3}">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>
