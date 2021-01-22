@@ -1,10 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Flat } from 'src/flats/entities/flat.entity';
 import { Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
-import { CreateShoppingListDto } from './dto/create-shopping-list.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { UpdateShoppingListDto } from './dto/update-shopping-list.dto';
 import { Item } from './entities/item.entity';
 import { ShoppingList } from './entities/shopping-list.entity';
 
@@ -17,8 +16,8 @@ export class ShoppingListService {
     private itemRepository: Repository<Item>,
   ) {}
 
-  async createList(createShoppingListDto: CreateShoppingListDto): Promise<ShoppingList> {
-    const shoppingL = this.shoppingListRepository.create(createShoppingListDto);
+  async createList(flat: Flat): Promise<ShoppingList> {
+    const shoppingL = this.shoppingListRepository.create({ flat });
     return this.shoppingListRepository.save(shoppingL);
   }
 
