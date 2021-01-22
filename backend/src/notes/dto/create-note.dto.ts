@@ -10,5 +10,5 @@ export class CreateNoteDto {
   readonly description: string;
 
   @IsNumber()
-  readonly user_Id: number;
+  readonly user_id: number;
 }

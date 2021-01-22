@@ -6,8 +6,7 @@ import { configService } from './config/config.service';
 import { UserModule } from './user/user.module';
 import { NotesModule } from './notes/notes.module';
 import { FlatModule } from './flat/flat.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { ShoppingListCategoryModule } from './shopping-list-category/shopping-list-category.module';
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -15,8 +14,7 @@ import { ShoppingListCategoryModule } from './shopping-list-category/shopping-li
     NotesModule,
     UserModule,
     FlatModule,
-    ShoppingListModule,
-    ShoppingListCategoryModule,
+    ItemsModule
   ],
   controllers: [AppController],
   providers: [AppService],

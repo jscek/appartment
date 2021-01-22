@@ -1,5 +1,5 @@
-import { PartialType } from '@nestjs/swagger';
 // import { PartialType } from '@nestjs/swagger';
-import { CreateShoppingListDto } from './create-shopping-list.dto';
+// // import { PartialType } from '@nestjs/swagger';
+// import { CreateShoppingListDto } from '../../items/dto/create-shopping-list.dto';
 
-export class UpdateShoppingListDto extends PartialType(CreateShoppingListDto) {}
+// export class UpdateShoppingListDto extends PartialType(CreateShoppingListDto) {}

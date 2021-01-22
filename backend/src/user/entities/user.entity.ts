@@ -1,6 +1,7 @@
 import { Flat } from '../../flat/entities/flat.entity';
 import { Note } from '../../notes/entities/note.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Item } from 'src/items/entities/item.entity';
 
 @Entity()
 export class User {
@@ -17,11 +18,16 @@ export class User {
   @OneToMany(() => Note, (note) => note.user)
   notes: Note[];
 
+  // user -* item
+  @OneToMany(() => Item, (item) => item.user)
+  items: Item[];
+
+
   // user *- flat
   @ManyToOne(() => Flat)
-  @JoinColumn({ name: 'flat_Id' })
+  @JoinColumn({ name: 'flat_id' })
   flat: Flat;
 
   @Column({ type: 'int', nullable: true })
-  flat_Id: number;
+  flat_id: number;
 }

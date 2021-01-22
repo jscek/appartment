@@ -30,11 +30,12 @@ export class Note {
   @ManyToOne(() => NoteBoard, (note_board) => note_board.notes, { nullable: false })
   @JoinColumn({ name: 'note_board_id' })
   note_board: NoteBoard;
+
   // note *- user
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_Id' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column({ type: 'int', nullable: false })
-  user_Id: number;
+  user_id: number;
 }
