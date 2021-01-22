@@ -38,6 +38,7 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DB'),
       synchronize: this.getValue('TYPEROM_SYNCHRONIZE') === 'true',
+      dropSchema: this.getValue('TYPEROM_DROPSCHEMA') === 'true',
 
       entities: ['dist/**/*.entity.js'],
 
@@ -61,6 +62,7 @@ const configService = new ConfigService(process.env).ensureValues([
   'POSTGRES_PASSWORD',
   'POSTGRES_DB',
   'TYPEROM_SYNCHRONIZE',
+  'TYPEROM_DROPSCHEMA',
 ]);
 
 export { configService };

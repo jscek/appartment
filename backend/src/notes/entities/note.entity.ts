@@ -21,11 +21,11 @@ export class Note {
   @Column({ type: 'varchar', length: 300 })
   description: string;
 
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
 
   @ManyToOne(() => NoteBoard, (note_board) => note_board.notes, { nullable: false })
   @JoinColumn({ name: 'note_board_id' })
@@ -34,7 +34,4 @@ export class Note {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
-
-  @Column({ type: 'int', nullable: false })
-  user_id: number;
 }

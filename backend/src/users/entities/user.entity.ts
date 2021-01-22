@@ -7,10 +7,16 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
+  email: string;
+
+  @Column({ nullable: false })
+  password: string;
+
+  @Column({ nullable: false })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
   // user -* note
@@ -21,7 +27,4 @@ export class User {
   @ManyToOne(() => Flat)
   @JoinColumn({ name: 'flat_id' })
   flat: Flat;
-
-  @Column({ type: 'int', nullable: true })
-  flat_id: number;
 }
