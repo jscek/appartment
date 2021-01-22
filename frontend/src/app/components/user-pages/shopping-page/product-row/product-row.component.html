@@ -1,0 +1,13 @@
+<div fxLayout="row" style="width: 100%; margin-left:5px; margin-bottom:2px; border-bottom: solid 1px white">
+    <span fxFlex="90%">
+        <ng-content ></ng-content>
+    </span>
+    <div>
+        <button mat-icon-button color="accent" style="margin: 2px; justify-self: flex-end;" (click)="checkProduct()">
+            <mat-icon small>check</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" style="margin: 2px justify-self: flex-end;" (click)="removeProduct()">
+            <mat-icon small>remove</mat-icon>
+        </button>
+    </div>
+</div>

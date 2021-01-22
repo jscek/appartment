@@ -33,6 +33,7 @@ import { PageCardComponent } from './components/page-card/page-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { EditProfileComponent } from './components/user-pages/profile-page/edit-profile/edit-profile.component';
 import { NotePopupComponent } from './components/user-pages/profile-page/note-popup/note-popup.component';
+import { ProductRowComponent } from './components/user-pages/shopping-page/product-row/product-row.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NotePopupComponent } from './components/user-pages/profile-page/note-po
     PageCardComponent,
     FooterComponent,
     EditProfileComponent,
-    NotePopupComponent
+    NotePopupComponent,
+    ProductRowComponent
   ],
   imports: [
     BrowserModule,
