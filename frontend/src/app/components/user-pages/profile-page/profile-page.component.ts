@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EditProfileComponent} from '../profile-page/edit-profile/edit-profile.component'
+import {NotePopupComponent} from '../profile-page/note-popup/note-popup.component'
 
 @Component({
   selector: 'app-profile-page',
@@ -16,8 +17,16 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDialog(): void {
+  openEditDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openNoteDialog(): void {
+    const dialogRef = this.dialog.open(NotePopupComponent, {});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

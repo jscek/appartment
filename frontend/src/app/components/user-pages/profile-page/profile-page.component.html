@@ -15,7 +15,7 @@
 
             <mat-card-actions>
                 <div fxLayout="row" fxLayoutAlign="end">
-                    <button mat-icon-button style="margin: 5px" (click)="openDialog()">
+                    <button mat-icon-button style="margin: 5px" (click)="openEditDialog()">
                         <mat-icon small>edit</mat-icon>
                     </button>
                 </div>
@@ -26,17 +26,26 @@
     <div fxFlex="75%">
         <app-page-card>
             <mat-card-subtitle>Flat notes:</mat-card-subtitle>
-            <div class="note-boundary">
+            <mat-card-content>
+                <div class="note-boundary">
 
-                <app-note> That is my first note</app-note>
+                    <app-note> That is my first note</app-note>
 
-                <app-note> That is my second note</app-note>
+                    <app-note> That is my second note</app-note>
 
-                <app-note> This is gonna jhas djha sjdah sjd ahsjd ahsjd ahds
-                    jashd jash dajds ajsdh ajsdh be my last note for long text.</app-note>
-                <app-note> That is my last note</app-note>
+                    <app-note> This is gonna jhas djha sjdah sjd ahsjd ahsjd ahds
+                        jashd jash dajds ajsdh ajsdh be my last note for long text.</app-note>
+                    <app-note> That is my last note</app-note>
 
-            </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="end">
+                    <button mat-icon-button style="margin: 5px" (click)="openNoteDialog()">
+                        <mat-icon small>add</mat-icon>
+                    </button>
+                </div>
+            </mat-card-actions>
         </app-page-card>
     </div>
 </div>

@@ -32,6 +32,7 @@ import { BillingsPageComponent } from './components/user-pages/billings-page/bil
 import { PageCardComponent } from './components/page-card/page-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { EditProfileComponent } from './components/user-pages/profile-page/edit-profile/edit-profile.component';
+import { NotePopupComponent } from './components/user-pages/profile-page/note-popup/note-popup.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { EditProfileComponent } from './components/user-pages/profile-page/edit-
     BillingsPageComponent,
     PageCardComponent,
     FooterComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    NotePopupComponent
   ],
   imports: [
     BrowserModule,
