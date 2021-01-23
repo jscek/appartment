@@ -19,6 +19,9 @@ export class User {
   @Column({ nullable: true })
   avatar: string;
 
+  @Column({ nullable: true })
+  score: number;
+
   // user -* note
   @OneToMany(() => Note, (note) => note.user)
   notes: Note[];

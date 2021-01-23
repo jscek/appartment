@@ -1,5 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Flat } from 'src/flats/entities/flat.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,10 +20,16 @@ export class UsersService {
     }
 
     const user = await this.usersRepository.create(createUserDto);
+    user.score = 0;
     return this.usersRepository.save(user);
   }
 
   async findOne(id: number): Promise<User> {
+    const user = this.usersRepository.findOne(id);
+    if (!user) {
+      throw new NotFoundException(`User with id: ${id} not found`);
+    }
+
     return this.usersRepository.findOne(id);
   }
 
@@ -31,9 +38,20 @@ export class UsersService {
     return user;
   }
 
+  async addToFlat(id: number, flat: Flat): Promise<void> {
+    const user = await this.findOne(id);
+    await this.usersRepository.save({ ...user, flat });
+    return;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
-    console.log(updateUserDto);
     return this.usersRepository.update(id, updateUserDto);
+  }
+
+  async updateScore(userId: number, score: number) {
+    const user = await this.findOne(userId);
+    const userCurrentScore = user.score;
+    return this.usersRepository.update(userId, { score: score + userCurrentScore });
   }
 
   async remove(id: number): Promise<void> {

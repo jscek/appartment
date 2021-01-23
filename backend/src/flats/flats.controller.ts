@@ -8,40 +8,53 @@ import {
   Delete,
   Patch,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { FlatsService } from './flats.service';
 import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('flats')
 export class FlatsController {
-  constructor(private readonly flatsService: FlatsService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly flatsService: FlatsService,
+  ) {}
 
   @Post()
-  create(@Body() createFlatDto: CreateFlatDto) {
+  async create(@Body() createFlatDto: CreateFlatDto) {
     return this.flatsService.create(createFlatDto);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.flatsService.findOne(+id);
+  }
+
+  @Get(':flatId/users')
+  async findFlatUsers(@Param('flatId') flatId: number) {
+    return this.flatsService.findFlatUsers(flatId);
   }
 
   @Patch(':code/join')
   @UseGuards(JwtAuthGuard)
-  join(@Request() req, @Param('code') code: string) {
-    const userId = req.user.id;
-    return;
+  @HttpCode(204)
+  async join(@Request() req, @Param('code') code: string) {
+    const flat = await this.flatsService.findByCode(code);
+    return this.usersService.addToFlat(req.user.id, flat);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFlatDto: UpdateFlatDto) {
+  @HttpCode(204)
+  async update(@Param('id') id: string, @Body() updateFlatDto: UpdateFlatDto) {
     return this.flatsService.update(+id, updateFlatDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.flatsService.remove(id);
   }
 }
