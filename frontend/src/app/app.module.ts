@@ -13,6 +13,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -78,6 +79,7 @@ import { JoiningPopupComponent } from './components/user-pages/flats-page/joinin
     MatTabsModule,
     MatInputModule,
     MatDialogModule,
+    MatSnackBarModule,
     DragDropModule,
     FormsModule
   ],
