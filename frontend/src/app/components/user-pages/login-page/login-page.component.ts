@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login-page',
@@ -8,9 +9,20 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  registerPassword: string;
+  registerConfirmPassword: string;
+
+
+  constructor(private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+  }
+
+  validateData(): boolean {
+    if (this.registerPassword == this.registerConfirmPassword) {
+      return true;
+    }
+    return false;
   }
 
   login(): void {
@@ -19,8 +31,16 @@ export class LoginPageComponent implements OnInit {
   }
 
   register(): void {
-    // TODO: register user and login
-    this.router.navigate(['/profile']);
+    // TODO: register user
+    if (this.validateData() == false) {
+      this._snackBar.open('Filled passwords are not the same!', 'Close',{
+        duration: 3000,
+      });
+    } else {
+      this._snackBar.open('Successfully registered!', 'Close',{
+        duration: 3000,
+      });
+      this.router.navigate(['/profile']);
+    }
   }
-
 }
