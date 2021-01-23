@@ -34,6 +34,11 @@ export class FlatsController {
     return this.flatsService.findOne(+id);
   }
 
+  @Get(':flatId/users')
+  async findFlatUsers(@Param('flatId') flatId: number) {
+    return this.flatsService.findFlatUsers(flatId);
+  }
+
   @Patch(':code/join')
   @UseGuards(JwtAuthGuard)
   @HttpCode(204)

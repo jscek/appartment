@@ -6,11 +6,11 @@ import { UpdateFlatDto } from './dto/update-flat.dto';
 import { Flat } from './entities/flat.entity';
 import { nanoid } from 'nanoid';
 import { UsersService } from 'src/users/users.service';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class FlatsService {
   constructor(
-    private usersService: UsersService,
     @InjectRepository(Flat)
     private flatsRepository: Repository<Flat>,
   ) {}
@@ -24,6 +24,14 @@ export class FlatsService {
 
   findOne(id: number) {
     return this.flatsRepository.findOne(id);
+  }
+
+  async findFlatUsers(flatId: number): Promise<User[]> {
+    const flat = await this.flatsRepository.findOne(flatId, { relations: ['users'] });
+    if (!flat) {
+      throw new NotFoundException('flat #${flatId} not found');
+    }
+    return flat.users;
   }
 
   async findByCode(code: string): Promise<Flat> {
