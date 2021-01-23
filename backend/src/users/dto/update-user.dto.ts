@@ -7,5 +7,5 @@ export class UpdateUserDto extends PartialType(
   CreateUserDto,
 ) {
   @IsNumber()
-  readonly flat_id: number;
+  readonly flat_id: string;
 }

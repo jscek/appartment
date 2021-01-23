@@ -22,11 +22,7 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  findAll() {
-    return this.usersRepository.find();
-  }
-
-  findOne(id: number) {
+  async findOne(id: number): Promise<User> {
     return this.usersRepository.findOne(id);
   }
 
@@ -35,7 +31,7 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     console.log(updateUserDto);
     return this.usersRepository.update(id, updateUserDto);
   }
