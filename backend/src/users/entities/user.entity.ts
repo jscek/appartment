@@ -1,6 +1,7 @@
 import { Flat } from '../../flats/entities/flat.entity';
 import { Note } from '../../notes/entities/note.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserTask } from 'src/schedules/entities/user-task.entity';
 
 @Entity()
 export class User {
@@ -30,4 +31,8 @@ export class User {
   @ManyToOne(() => Flat)
   @JoinColumn({ name: 'flat_id' })
   flat: Flat;
+
+  // user -* userTask
+  @OneToMany(() => UserTask, (userTask) => userTask.user)
+  userTasks: UserTask[];
 }

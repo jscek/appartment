@@ -23,7 +23,7 @@ export class ShoppingListService {
 
   async createItem(listId: number, createItemDto: CreateItemDto): Promise<Item> {
     const listSh = await this.shoppingListRepository.findOne(listId);
-    console.log('LIst Id', listId, ' and list: ', listSh);
+    console.log('List Id', listId, ' and list: ', listSh);
     if (!listSh) {
       throw new NotFoundException(`ShoppingLIst #${listId} not found`);
     }
@@ -50,8 +50,8 @@ export class ShoppingListService {
   }
 
   async findOneItem(itemId: number): Promise<Item> {
-    const listSh = await this.itemRepository.findOne(itemId);
-    if (!listSh) {
+    const item = await this.itemRepository.findOne(itemId);
+    if (!item) {
       throw new NotFoundException(`Item #${itemId} not found`);
     }
     return this.itemRepository.findOne(itemId);

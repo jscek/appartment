@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Flat } from 'src/flats/entities/flat.entity';
 import { Repository } from 'typeorm';
 import { CreateNoteBoardDto } from './dto/create-note-board.dto';
 import { CreateNoteDto } from './dto/create-note.dto';
@@ -16,8 +17,8 @@ export class NotesService {
     private noteBoardsRepository: Repository<NoteBoard>,
   ) {}
 
-  async createBoard(createNoteBoardDto: CreateNoteBoardDto): Promise<NoteBoard> {
-    const noteBoard = this.noteBoardsRepository.create(createNoteBoardDto);
+  async createBoard(flat: Flat): Promise<NoteBoard> {
+    const noteBoard = this.noteBoardsRepository.create({ flat });
     return this.noteBoardsRepository.save(noteBoard);
   }
 

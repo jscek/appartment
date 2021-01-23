@@ -7,19 +7,31 @@ import { Flat } from './entities/flat.entity';
 import { nanoid } from 'nanoid';
 import { UsersService } from 'src/users/users.service';
 import { User } from '../users/entities/user.entity';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { NotesService } from 'src/notes/notes.service';
+import { SchedulesService } from 'src/schedules/schedules.service';
 
 @Injectable()
 export class FlatsService {
   constructor(
     @InjectRepository(Flat)
     private flatsRepository: Repository<Flat>,
+    private readonly shoppingListService: ShoppingListService,
+    private readonly noteService: NotesService,
+    private readonly scheduleService: SchedulesService,
   ) {}
 
   async create(createFlatDto: CreateFlatDto): Promise<Flat> {
     const flat = this.flatsRepository.create(createFlatDto);
     const code = nanoid(10);
 
-    return this.flatsRepository.save({ code, ...flat });
+    //need to be refactored
+    const new_flat = await this.flatsRepository.save({ code, ...flat });
+    const schedule = await this.scheduleService.createSchadule(new_flat);
+    const shoppingList = await this.shoppingListService.createList(new_flat);
+    const noteBoard = await this.noteService.createBoard(new_flat);
+    await this.flatsRepository.update(new_flat.id, { shoppingList, noteBoard, schedule });
+    return new_flat;
   }
 
   findOne(id: number) {
@@ -29,7 +41,7 @@ export class FlatsService {
   async findFlatUsers(flatId: number): Promise<User[]> {
     const flat = await this.flatsRepository.findOne(flatId, { relations: ['users'] });
     if (!flat) {
-      throw new NotFoundException('flat #${flatId} not found');
+      throw new NotFoundException(`flat #${flatId} not found`);
     }
     return flat.users;
   }
