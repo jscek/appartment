@@ -20,11 +20,6 @@ import { NotesService } from './notes.service';
 export class NotesController {
   constructor(private notesService: NotesService) {}
 
-  @Post('boards')
-  async createBoard(@Body() createNoteBoardDto: CreateNoteBoardDto) {
-    return this.notesService.createBoard(createNoteBoardDto);
-  }
-
   @Get('boards/:noteBoardId')
   async findAll(@Param('noteBoardId') noteBoardId: number) {
     return this.notesService.findAll(noteBoardId);

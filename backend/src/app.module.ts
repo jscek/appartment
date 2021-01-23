@@ -8,6 +8,7 @@ import { NotesModule } from './notes/notes.module';
 import { FlatsModule } from './flats/flats.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
+import { SchedulesModule } from './schedules/schedules.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     FlatsModule,
     ShoppingListModule,
     AuthModule,
+    SchedulesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
