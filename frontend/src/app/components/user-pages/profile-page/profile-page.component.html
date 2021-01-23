@@ -34,7 +34,7 @@
             <mat-card-subtitle>Flat notes:</mat-card-subtitle>
             <mat-card-content>
                 <div *ngIf="!(flatNotes.length == 0)" class="note-boundary">
-                    <app-note *ngFor="let itemNote of flatNotes" (dblclick)="openNoteDialog()"> 
+                    <app-note *ngFor="let itemNote of flatNotes" (dblclick)="openNoteDialog(itemNote)"> 
                         <h3 style="margin-bottom: 2px;">{{itemNote.title}}</h3>
                         <span>{{itemNote.description}}</span>
                         <div>

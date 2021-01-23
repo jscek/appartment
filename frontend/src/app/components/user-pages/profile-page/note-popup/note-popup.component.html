@@ -1,11 +1,23 @@
-<h1 mat-dialog-title>Note:</h1>
+<mat-form-field>
+    <input matInput style="width: 100%" placeholder="Title" [(ngModel)]="editNoteValues.title">
+</mat-form-field>
 <div mat-dialog-content>
         <mat-form-field>
-            <textarea matInput style="min-height: 200px;" placeholder="PLace a note here"></textarea>
+            <textarea matInput style="min-height: 200px;" 
+                placeholder="PLace a note here"
+                [(ngModel)]="editNoteValues.description">
+            </textarea>
         </mat-form-field>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Close</button>
-    <button mat-button color="warn" (click)="onNoClick()">Delete</button>
-    <button mat-button cdkFocusInitial color="accent" (click)="onNoClick()">Save</button>
+    <button *ngIf="editNoteValues.id != null" mat-button color="warn" 
+        [mat-dialog-close]="{action: 'DELETE', data: editNoteValues}">
+        Delete
+    </button>
+    <button mat-button cdkFocusInitial color="accent" (click)="saveNote()">
+        Save
+    </button>
+    <button hidden #noteSaver [mat-dialog-close]="{action: 'SAVE', data: editNoteValues}">
+    </button>
 </div>

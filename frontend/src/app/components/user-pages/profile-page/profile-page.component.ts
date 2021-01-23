@@ -36,38 +36,6 @@ export class ProfilePageComponent implements OnInit {
     score: 200
   }
 
-  n1: NoteStructure = {
-    id: 1,
-    title: "Kuchnia",
-    description: "Kurwa mać jak zwykle jebany pierdolnik",
-    created_at: "2021-01-21",
-    user_name: "Janek"
-  }
-
-  n2: NoteStructure = {
-    id: 1,
-    title: "Sprzątanie",
-    description: "Chłopaczki w tym tyg posprzątamy??",
-    created_at: "2021-01-21",
-    user_name: "Matiax Połeć"
-  }
-
-  n3: NoteStructure = {
-    id: 1,
-    title: "O Wy kurła",
-    description: "tldr",
-    created_at: "2021-01-21",
-    user_name: "Jaca Praca"
-  }
-
-  n4: NoteStructure = {
-    id: 1,
-    title: "LOL!",
-    description: "Wow chopaczki ale wam opowiem jazka taka że ja jebe, posłuchajcie tego... ",
-    created_at: "2021-01-21",
-    user_name: "Janek"
-  }
-
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -86,7 +54,6 @@ export class ProfilePageComponent implements OnInit {
     }
 
     this.flatUsers.push(this.u1,this.u2);
-    this.flatNotes.push(this.n1,this.n2,this.n3,this.n4,this.n2,this.n3,this.n4);
   }
 
   getImg(): string {
@@ -106,17 +73,47 @@ export class ProfilePageComponent implements OnInit {
         if (result.avatar != "") {
           this.userData.avatar = result.avatar;
           this.imgData = result.avatar;
+          // TODO: UPDATE USER IN DATABASE
         }
       }
     });
   }
 
-  openNoteDialog(): void {
-    const dialogRef = this.dialog.open(NotePopupComponent, {});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+  openNoteDialog(editNote: NoteStructure = null): void {
+    if (editNote == null) {
+      const dialogRef = this.dialog.open(NotePopupComponent, {
+        data: {id: editNote}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null) {
+          if (result.action == "SAVE") {
+            let newNote: NoteStructure = {
+              id: 10,
+              title: result.data.title,
+              description: result.data.description,
+              created_at: "2021-01-21",
+              user_name: this.userData.name
+            };
+            this.flatNotes.push(newNote);
+          }
+        }
+      });
+    } else {
+      const dialogRef = this.dialog.open(NotePopupComponent, {
+        data: {id: editNote.id, title: editNote.title, description: editNote.description}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null) {
+          if (result.action == "SAVE") {
+            let idx = this.flatNotes.findIndex(obj => obj.id == result.data.id);
+            this.flatNotes[idx].title = result.data.title;
+            this.flatNotes[idx].description = result.data.description;
+          } else if (result.action == "DELETE") {
+            this.flatNotes = this.flatNotes.filter(obj => obj.id != result.data.id);
+          }
+        }
+      });
+    }
   }
 
 }
