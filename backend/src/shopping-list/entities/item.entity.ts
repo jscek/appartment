@@ -32,8 +32,14 @@ export class Item {
   // @Column({ type: 'int', nullable: false })
   // user_id: number;
 
+  // @Column({ type: 'int', nullable: false })
+  // user_id: number;
+
   // item *- shoppngLIst
-  @ManyToOne(() => ShoppingList, (shoppingList) => shoppingList.items, { nullable: false })
+  @ManyToOne(() => ShoppingList, (shoppingList) => shoppingList.items, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'shoppingList_id' })
   shoppingList: ShoppingList;
 }
