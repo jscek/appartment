@@ -1,1 +1,36 @@
-<p>assignments-page works!</p>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+    fxLayoutGap="20px" fxLayoutAlign="center">
+    <div fxFlex="80%">
+        <app-page-card style="padding: 15px">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+                fxLayoutGap="20px" fxLayoutAlign="begin">
+                <div fxFlex="75%">
+                    <mat-card-title style="margin:5px; margin-bottom: 30px">Schedule:</mat-card-title>
+                </div>
+                <div fxLayoutAlign="end" fxFlex="25%">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" (dateChange)="addEvent('change', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+            fxLayoutGap="20px" fxLayoutAlign="begin">
+                <mat-form-field fxFlex="80%" style="margin: 10px;">
+                    <mat-label>Add new task</mat-label>
+                    <input matInput type="text" name="newTask" placeholder="New Task">
+                </mat-form-field>
+                <mat-form-field fxFlex="60px"  style="margin: 10px;">
+                    <mat-label>Points</mat-label>
+                    <input matInput type="number" name="addPoints" placeholder="Points">
+                </mat-form-field>
+                <button mat-button color="accent">Add</button>
+            </div>
+
+            {{choosenDate}}
+
+        </app-page-card>
+    </div>
+</div>
