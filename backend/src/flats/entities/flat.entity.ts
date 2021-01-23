@@ -11,7 +11,7 @@ export class Flat {
   @Column({ nullable: false })
   name: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   code: string;
 
   @OneToMany(() => User, (user) => user.flat)

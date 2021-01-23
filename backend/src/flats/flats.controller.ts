@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { FlatsService } from './flats.service';
 import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('flats')
 export class FlatsController {
@@ -12,14 +23,16 @@ export class FlatsController {
     return this.flatsService.create(createFlatDto);
   }
 
-  @Get()
-  findAll() {
-    return this.flatsService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.flatsService.findOne(+id);
+  }
+
+  @Patch(':code/join')
+  @UseGuards(JwtAuthGuard)
+  join(@Request() req, @Param('code') code: string) {
+    const userId = req.user.id;
+    return;
   }
 
   @Patch(':id')

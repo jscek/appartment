@@ -5,10 +5,12 @@ import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
 import { Flat } from './entities/flat.entity';
 import { nanoid } from 'nanoid';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class FlatsService {
   constructor(
+    private usersService: UsersService,
     @InjectRepository(Flat)
     private flatsRepository: Repository<Flat>,
   ) {}
@@ -18,10 +20,6 @@ export class FlatsService {
     const code = nanoid(10);
 
     return this.flatsRepository.save({ code, ...flat });
-  }
-
-  findAll() {
-    return this.flatsRepository.find();
   }
 
   findOne(id: number) {
@@ -35,6 +33,10 @@ export class FlatsService {
     }
 
     return flat;
+  }
+
+  async addUser(userId: number, code: string) {
+    const flat = this.findByCode(code);
   }
 
   update(id: number, updateFlatDto: UpdateFlatDto) {
