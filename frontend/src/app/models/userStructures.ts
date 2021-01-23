@@ -5,3 +5,8 @@ export interface UserStructure {
     avatar: string;
     score: number;
 }
+
+export interface EditUserStructure {
+    name: string;
+    avatar: string
+}

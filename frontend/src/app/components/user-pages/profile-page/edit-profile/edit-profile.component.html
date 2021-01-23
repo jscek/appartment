@@ -14,10 +14,10 @@
     </div>
     <mat-form-field style="width: 100%;">
         <mat-label>Your Name:</mat-label>
-        <input matInput placeholder="" value="Jan Kosiński">
+        <input matInput placeholder="" [(ngModel)]="editUserValues.name">
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button cdkFocusInitial color="accent" (click)="onNoClick()">Save</button>
+  <button mat-button cdkFocusInitial color="accent" [mat-dialog-close]="editUserValues">Save</button>
 </div>

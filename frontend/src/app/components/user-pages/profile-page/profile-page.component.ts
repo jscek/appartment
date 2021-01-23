@@ -86,7 +86,7 @@ export class ProfilePageComponent implements OnInit {
     }
 
     this.flatUsers.push(this.u1,this.u2);
-    this.flatNotes.push(this.n1,this.n2,this.n3,this.n4);
+    this.flatNotes.push(this.n1,this.n2,this.n3,this.n4,this.n2,this.n3,this.n4);
   }
 
   getImg(): string {
@@ -94,10 +94,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   openEditDialog(): void {
-    const dialogRef = this.dialog.open(EditProfileComponent, {});
+    const dialogRef = this.dialog.open(EditProfileComponent, {
+      data: {name: this.userData.name}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result.name != this.userData.name) {
+        this.userData.name = result.name;
+      }
+      if (result.avatar != "") {
+        this.userData.avatar = result.avatar;
+        this.imgData = result.avatar;
+      }
     });
   }
 
@@ -105,7 +113,7 @@ export class ProfilePageComponent implements OnInit {
     const dialogRef = this.dialog.open(NotePopupComponent, {});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log(result);
     });
   }
 
