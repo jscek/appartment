@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {JoiningPopupComponent} from '../flats-page/joining-popup/joining-popup.component'
 
 @Component({
   selector: 'app-flats-page',
@@ -9,7 +11,7 @@ export class FlatsPageComponent implements OnInit {
 
   flatCode: string = "";
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +21,14 @@ export class FlatsPageComponent implements OnInit {
       return false;
     } 
     return true;
+  }
+
+  openJoiningDialog(): void {
+    const dialogRef = this.dialog.open(JoiningPopupComponent, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   leaveFlat(): void {
