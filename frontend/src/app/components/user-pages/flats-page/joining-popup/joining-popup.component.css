@@ -1,0 +1,7 @@
+.status-done {
+    color: rgb(32, 184, 32);
+}
+
+.status-fail {
+    color: rgb(214, 45, 45);
+}

@@ -1,7 +1,6 @@
 import { Note } from './note.entity';
-import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
-import { Flat } from 'src/flat/entities/flat.entity';
+import { Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Flat } from '../../flats/entities/flat.entity';
 
 @Entity()
 export class NoteBoard {
@@ -11,6 +10,7 @@ export class NoteBoard {
   @OneToMany(() => Note, (note) => note.noteBoard)
   notes: Note[];
 
-  @ManyToOne(() => Flat, (flat) => flat.noteBoard)
+  @OneToOne(() => Flat, (flat) => flat.noteBoard)
+  @JoinColumn({ name: 'flat_id' })
   flat: Flat;
 }

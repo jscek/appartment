@@ -12,7 +12,7 @@
                     <button *ngIf="!flatCodeExists()" mat-stroked-button cdkFocusInitial class="flat-button">
                         {{"create flat" | uppercase}}
                     </button>
-                    <button *ngIf="!flatCodeExists()" mat-stroked-button color="accent" class="flat-button">
+                    <button *ngIf="!flatCodeExists()" mat-stroked-button color="accent" (click)="openJoiningDialog()" class="flat-button">
                         {{"join flat" | uppercase}}
                     </button>
          
