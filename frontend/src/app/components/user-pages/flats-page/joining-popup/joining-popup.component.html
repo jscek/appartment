@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Joining flat:</h1>
+<div mat-dialog-content>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Enter flat code:</mat-label>
+        <input [(ngModel)]="flatCode" name="flatCode" type="text" matInput>
+    </mat-form-field>
+</div>
+
+<div [ngClass]="{'status-done': status, 'status-fail': !status}">
+    {{statusText}}
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button color="accent" cdkFocusInitial (click)="tryToJoin()">Join</button>
+</div>
