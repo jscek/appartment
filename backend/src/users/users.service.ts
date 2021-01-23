@@ -20,6 +20,7 @@ export class UsersService {
     }
 
     const user = await this.usersRepository.create(createUserDto);
+    user.score = 0;
     return this.usersRepository.save(user);
   }
 
@@ -45,6 +46,12 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     return this.usersRepository.update(id, updateUserDto);
+  }
+
+  async updateScore(userId: number, score: number) {
+    const user = await this.findOne(userId);
+    const userCurrentScore = user.score;
+    return this.usersRepository.update(userId, { score: score + userCurrentScore });
   }
 
   async remove(id: number): Promise<void> {

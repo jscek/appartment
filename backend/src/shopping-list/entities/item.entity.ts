@@ -1,5 +1,4 @@
 import { User } from '../../users/entities/user.entity';
-// import { Category } from '../../items/entities/category.entity'
 import {
   Column,
   CreateDateColumn,

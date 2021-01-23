@@ -42,7 +42,6 @@ export class ShoppingListController {
     return this.shoppingListService.removeItem(itemId);
   }
 
-  //nie dziala (trzeba wymyslic jak usunac wszyskie itemy razem z lista)
   @Delete(':listId')
   async removeList(@Param('listId') listId: number) {
     return this.shoppingListService.removeList(listId);
