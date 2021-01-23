@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FlatsPageComponent implements OnInit {
 
+  flatCode: string = "";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  flatCodeExists(): boolean {
+    if (this.flatCode == "") {
+      return false;
+    } 
+    return true;
+  }
+
+  leaveFlat(): void {
+
   }
 
 }
