@@ -19,8 +19,15 @@ export class UsersController {
   }
 
   @Patch(':userId/score')
+  @HttpCode(204)
   async updateScore(@Param('userId') userId: number, @Body() addScoreUserDto: AddScoreUserDto) {
     const score = addScoreUserDto.score;
     return this.usersService.updateScore(userId, score);
+  }
+
+  @Patch(':userId/update')
+  @HttpCode(204)
+  async updateUserProfile(@Param('userId') userId: number, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUserProfile(userId, updateUserDto);
   }
 }
