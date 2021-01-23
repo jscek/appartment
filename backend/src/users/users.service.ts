@@ -54,6 +54,10 @@ export class UsersService {
     return this.usersRepository.update(userId, { score: score + userCurrentScore });
   }
 
+  async updateUserProfile(userId: number, updateUserDto: UpdateUserDto): Promise<User> {
+    return this.usersRepository.save({ id: userId, ...updateUserDto });
+  }
+
   async remove(id: number): Promise<void> {
     console.log('Got user_id to delete: ', id);
     await this.usersRepository.delete(id);

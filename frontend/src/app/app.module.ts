@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -82,6 +83,7 @@ import { JoiningPopupComponent } from './components/user-pages/flats-page/joinin
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
     DragDropModule,
     FormsModule
   ],
