@@ -99,12 +99,14 @@ export class ProfilePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.name != this.userData.name) {
-        this.userData.name = result.name;
-      }
-      if (result.avatar != "") {
-        this.userData.avatar = result.avatar;
-        this.imgData = result.avatar;
+      if (result != null) {
+        if (result.name != this.userData.name) {
+          this.userData.name = result.name;
+        }
+        if (result.avatar != "") {
+          this.userData.avatar = result.avatar;
+          this.imgData = result.avatar;
+        }
       }
     });
   }
