@@ -3,15 +3,20 @@
     <div fxFlex="25%">
         <app-page-card>
             <div fxLayout="column">
-                <img mat-card-image style="border-radius: 5px; margin-bottom: 20px;" [src]="img_file">
-                <mat-card-title>Jan Kosiński</mat-card-title>
-                <mat-card-subtitle>jankos1195@gmail.com</mat-card-subtitle>
-                <mat-card-subtitle> <span style="color: white">Your scroe:</span> 1500</mat-card-subtitle>
+                <img mat-card-image style="border-radius: 5px; margin-bottom: 20px;" [src]="getImg()">
+                <mat-card-title>{{userData.name}}</mat-card-title>
+                <mat-card-subtitle>{{userData.email}}</mat-card-subtitle>
+                <mat-card-subtitle> <span style="color: white">Your scroe:</span> {{userData.score}} </mat-card-subtitle>
             </div>
-            <mat-card-content>
+            <mat-card-content *ngIf="!(flatUsers.length == 0)">
                 <div style="margin-bottom: 2px; font-size: large">Flatmates:</div>
-                <mat-card-subtitle style="margin:0">Jacex Polsa</mat-card-subtitle>
-                <mat-card-subtitle style="margin:0">Mefju Szecynpol</mat-card-subtitle>
+                <mat-card-subtitle *ngFor="let itemUser of flatUsers" style="margin:0">
+                    {{itemUser.name}}
+                </mat-card-subtitle>
+            </mat-card-content>
+
+            <mat-card-content *ngIf="flatUsers.length == 0">
+                <div style="margin-bottom: 2px; font-size: large">You do not have any flatmates.</div>
             </mat-card-content>
 
             <mat-card-actions>
@@ -28,16 +33,17 @@
         <app-page-card>
             <mat-card-subtitle>Flat notes:</mat-card-subtitle>
             <mat-card-content>
-                <div class="note-boundary">
-
-                    <app-note (dblclick)="openNoteDialog()"> That is my first note</app-note>
-
-                    <app-note (dblclick)="openNoteDialog()"> That is my second note</app-note>
-
-                    <app-note (dblclick)="openNoteDialog()"> This is gonna jhas djha sjdah sjd ahsjd ahsjd ahds
-                        jashd jash dajds ajsdh ajsdh be my last note for long text.</app-note>
-                    <app-note (dblclick)="openNoteDialog()"> That is my last note</app-note>
-
+                <div *ngIf="!(flatNotes.length == 0)" class="note-boundary">
+                    <app-note *ngFor="let itemNote of flatNotes" (dblclick)="openNoteDialog()"> 
+                        <h3 style="margin-bottom: 2px;">{{itemNote.title}}</h3>
+                        <span>{{itemNote.description}}</span>
+                        <div>
+                            {{itemNote.user_name}} ( {{itemNote.created_at}} )
+                        </div>
+                    </app-note>
+                </div>
+                <div *ngIf="flatNotes.length == 0" class="note-boundary">
+                    <app-note><h1>There are not any flat notes!</h1></app-note>
                 </div>
             </mat-card-content>
             <mat-card-actions>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EditProfileComponent} from '../profile-page/edit-profile/edit-profile.component'
 import {NotePopupComponent} from '../profile-page/note-popup/note-popup.component'
+import {UserStructure} from 'src/app/models/userStructures'
+import {NoteStructure} from 'src/app/models/noteStructures'
 
 @Component({
   selector: 'app-profile-page',
@@ -10,11 +12,85 @@ import {NotePopupComponent} from '../profile-page/note-popup/note-popup.componen
 })
 export class ProfilePageComponent implements OnInit {
 
-  img_file: string = "https://scontent-waw1-1.xx.fbcdn.net/v/t31.0-8/30420102_1788124121266457_3171397161646616647_o.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=Se8wCydwv4QAX8KDyJf&_nc_ht=scontent-waw1-1.xx&oh=c5c1df13f3cb6198cb6037cbb96eac26&oe=602ADB04"
+  private defaultImgPath: string = "../../../assets/default_avatar.png";
+  private imgData: string = null;
+  
+  flatUsers: UserStructure[] = [];
+  flatNotes: NoteStructure[] = [];
+
+  userData: UserStructure;
+
+  u1: UserStructure = {
+    id: 1,
+    email: "jankos1195@gmail.com",
+    name: "Jaca Praca",
+    avatar: null,
+    score: 300
+  }
+
+  u2: UserStructure = {
+    id: 1,
+    email: "jankos1195@gmail.com",
+    name: "Matiax Połeć",
+    avatar: null,
+    score: 200
+  }
+
+  n1: NoteStructure = {
+    id: 1,
+    title: "Kuchnia",
+    description: "Kurwa mać jak zwykle jebany pierdolnik",
+    created_at: "2021-01-21",
+    user_name: "Janek"
+  }
+
+  n2: NoteStructure = {
+    id: 1,
+    title: "Sprzątanie",
+    description: "Chłopaczki w tym tyg posprzątamy??",
+    created_at: "2021-01-21",
+    user_name: "Matiax Połeć"
+  }
+
+  n3: NoteStructure = {
+    id: 1,
+    title: "O Wy kurła",
+    description: "tldr",
+    created_at: "2021-01-21",
+    user_name: "Jaca Praca"
+  }
+
+  n4: NoteStructure = {
+    id: 1,
+    title: "LOL!",
+    description: "Wow chopaczki ale wam opowiem jazka taka że ja jebe, posłuchajcie tego... ",
+    created_at: "2021-01-21",
+    user_name: "Janek"
+  }
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    this.userData = {
+      id: 1,
+      email: "jankos1195@gmail.com",
+      name: "Janek",
+      avatar: null,
+      score: 1500
+    };
+
+    this.imgData = this.userData.avatar;
+    if (this.imgData == null) {
+      this.imgData = this.defaultImgPath;
+    }
+
+    this.flatUsers.push(this.u1,this.u2);
+    this.flatNotes.push(this.n1,this.n2,this.n3,this.n4);
+  }
+
+  getImg(): string {
+    return this.imgData;
   }
 
   openEditDialog(): void {
