@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+}
+
+.basicCell {
+    width: 25px !important;
+    height: 56px;
+    text-align: center;
+    justify-content: center;
+    border-left: 1px solid rgb(89, 89, 89);
+}
+
+.done {
+    background-color: rgb(49, 170, 49);
+    opacity: 0.5;
+}
+
+.assigned {
+    background-color: rgb(79, 128, 219);
+    opacity: 0.5;
+}
+
+.taskCell {
+    width: 10vw;
+}
+
+.tableCell {
+    width: 25px;
+    margin: 1px;
+    height: 55px;
+    transition: 0.5s;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tableCell:hover {
+    background-color: burlywood;
+    opacity: 1;
+}
