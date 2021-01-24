@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -17,7 +18,10 @@ export class UserTask {
   id: number;
 
   @Column({ nullable: false })
-  week: number;
+  month: number;
+
+  @Column({ nullable: true })
+  day: number;
 
   @Column({ nullable: false })
   done: boolean;
@@ -28,13 +32,13 @@ export class UserTask {
   @UpdateDateColumn()
   updated_at: Date;
 
-  // userTask *-* task
-  @ManyToMany(() => Task, (task) => task.userTasks)
+  // userTask *- task
+  @ManyToOne(() => Task, (task) => task.userTasks)
   @JoinColumn({ name: 'task_id' })
-  tasks: Task[];
+  task: Task;
 
   // userTask *- user
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.userTasks)
   @JoinColumn({ name: 'user_id' })
   user: User;
 }

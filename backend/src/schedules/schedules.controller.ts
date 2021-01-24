@@ -16,12 +16,12 @@ export class SchedulesController {
     return this.schedulesService.createTask(scheduleId, createTaskDto);
   }
 
-  @Post('tasks/:userTaskId')
+  @Post('tasks/:taskId')
   async createUserTask(
-    @Param('userTaskId') userTaskId: number,
+    @Param('taskId') taskId: number,
     @Body() createUserTaskDto: CreateUserTaskDto,
   ) {
-    return this.schedulesService.createUserTask(userTaskId, createUserTaskDto);
+    return this.schedulesService.createUserTask(taskId, createUserTaskDto);
   }
 
   @Get(':scheduleId/tasks')
@@ -33,6 +33,14 @@ export class SchedulesController {
   @Get('tasks/:taskId')
   async findOneTask(@Param('taskId') taskId: number) {
     return this.schedulesService.findOneTask(taskId);
+  }
+
+  @Get(':scheduleId/tasks/:month')
+  async findAllUserTasksByMonthOfchedule(
+    @Param('scheduleId') scheduleId: number,
+    @Param('month') month: number,
+  ) {
+    return this.schedulesService.findAllUserTasksByMonthOfchedule(scheduleId, month);
   }
 
   @Patch('tasks/:taskId')

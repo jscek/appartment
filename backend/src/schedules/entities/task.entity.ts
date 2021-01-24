@@ -3,8 +3,10 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,8 +29,7 @@ export class Task {
   @JoinColumn({ name: 'schedule_id' })
   schedule: Schedule;
 
-  // task *-* userTask
-  @ManyToMany(() => UserTask, (userTask) => userTask.tasks)
-  @JoinColumn({ name: 'userTask_id' })
+  // task -* userTask
+  @OneToMany(() => UserTask, (userTask) => userTask.task)
   userTasks: UserTask[];
 }
