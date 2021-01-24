@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Create new flat:</h1>
+<div mat-dialog-content>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Enter name:</mat-label>
+        <input [(ngModel)]="flatName" name="flatName" type="text" matInput>
+    </mat-form-field>
+</div>
+
+
+<div mat-dialog-actions>
+  <button mat-button (click)="closePopup()">Close</button>
+  <button mat-button [disabled]='!flatName' color="accent" (click)="createFlat()">Create</button>
+</div>

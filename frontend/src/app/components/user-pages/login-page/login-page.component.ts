@@ -41,12 +41,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(): void {
-    // TODO: login user
-    // this.router.navigate(['/profile']);
     this.authService
       .login(this.loginEmail, this.loginPassword)
       .pipe(first())
-      .subscribe((data) => {
+      .subscribe((_data) => {
         this.router.navigateByUrl(this.returnUrl);
       });
   }
@@ -64,7 +62,7 @@ export class LoginPageComponent implements OnInit {
           this.authService
             .login(this.registerEmail, this.registerPassword)
             .pipe(first())
-            .subscribe((data) => {
+            .subscribe((_data) => {
               this.router.navigateByUrl(this.returnUrl);
             });
         });
@@ -72,7 +70,6 @@ export class LoginPageComponent implements OnInit {
       this._snackBar.open('Successfully registered!', 'Close', {
         duration: 3000,
       });
-      this.router.navigate(['/profile']);
     }
   }
 }

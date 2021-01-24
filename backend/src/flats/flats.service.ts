@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getConnection } from 'typeorm';
 import { CreateFlatDto } from './dto/create-flat.dto';
 import { UpdateFlatDto } from './dto/update-flat.dto';
 import { Flat } from './entities/flat.entity';
@@ -19,19 +19,22 @@ export class FlatsService {
     private readonly shoppingListService: ShoppingListService,
     private readonly noteService: NotesService,
     private readonly scheduleService: SchedulesService,
+    private readonly usersService: UsersService,
   ) {}
 
-  async create(createFlatDto: CreateFlatDto): Promise<Flat> {
+  async create(createFlatDto: CreateFlatDto, user: User): Promise<Flat> {
     const flat = this.flatsRepository.create(createFlatDto);
     const code = nanoid(10);
 
     //need to be refactored
-    const new_flat = await this.flatsRepository.save({ code, ...flat });
-    const schedule = await this.scheduleService.createSchadule(new_flat);
-    const shoppingList = await this.shoppingListService.createList(new_flat);
-    const noteBoard = await this.noteService.createBoard(new_flat);
-    await this.flatsRepository.update(new_flat.id, { shoppingList, noteBoard, schedule });
-    return new_flat;
+    const newFlat = await this.flatsRepository.save({ code, ...flat });
+    const schedule = await this.scheduleService.createSchadule(newFlat);
+    const shoppingList = await this.shoppingListService.createList(newFlat);
+    const noteBoard = await this.noteService.createBoard(newFlat);
+    await this.flatsRepository.update(newFlat.id, { shoppingList, noteBoard, schedule });
+    await this.usersService.addToFlat(user.id, newFlat);
+
+    return this.flatsRepository.findOne(newFlat.id, { relations: ['users'] });
   }
 
   findOne(id: number) {
@@ -47,12 +50,17 @@ export class FlatsService {
   }
 
   async findByCode(code: string): Promise<Flat> {
-    const flat = await this.flatsRepository.findOne({ code });
+    const flat = await this.flatsRepository.findOne({ code }, { relations: ['users'] });
     if (!flat) {
       throw new NotFoundException(`Flat with code: ${code} not found`);
     }
 
     return flat;
+  }
+
+  async findByUser(user: User): Promise<Flat> {
+    const flat = await this.usersService.findFlat(user.id);
+    return this.flatsRepository.findOne(flat.id, { relations: ['users'] });
   }
 
   async addUser(userId: number, code: string) {

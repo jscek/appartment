@@ -3,6 +3,7 @@ import { inheritPropertyInitializers } from '@nestjs/mapped-types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Flat } from 'src/flats/entities/flat.entity';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { CreateUserTaskDto } from './dto/create-user-task.dto';
@@ -21,6 +22,8 @@ export class SchedulesService {
     private taskRepository: Repository<Task>,
     @InjectRepository(UserTask)
     private userTaskRepository: Repository<UserTask>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async createSchadule(flat: Flat): Promise<Schedule> {
@@ -38,11 +41,17 @@ export class SchedulesService {
   }
 
   async createUserTask(taskId: number, createUserTaskDto: CreateUserTaskDto): Promise<UserTask> {
-    const taskk = await this.taskRepository.findOne(taskId);
-    if (!taskk) {
+    const tasks = await this.taskRepository.findOne(taskId);
+    const id = createUserTaskDto.user_id;
+    const users = await this.userRepository.findOne(id);
+    if (!tasks) {
       throw new NotFoundException(`Task with id #${taskId} not found`);
     }
-    const userTask = this.userTaskRepository.create({ ...createUserTaskDto });
+    const userTask = this.userTaskRepository.create({
+      task: tasks,
+      user: users,
+      ...createUserTaskDto,
+    });
     return this.userTaskRepository.save(userTask);
   }
 
@@ -52,6 +61,31 @@ export class SchedulesService {
       throw new NotFoundException(`Schedule with id #${scheduleId} not found`);
     }
     return scheduler.tasks;
+  }
+
+  async findAllUserTasksOfTask(taskId: number): Promise<UserTask[]> {
+    const task = await this.taskRepository.findOne(taskId, { relations: ['userTasks'] });
+    return task.userTasks;
+  }
+
+  async findAllUserTasksByMonth(month: number): Promise<UserTask[]> {
+    const userTasks = await this.userTaskRepository.find({ where: { month: month } });
+    return userTasks;
+  }
+
+  async findAllUserTasksByMonthOfchedule(scheduleId: number, month: number) {
+    const scheduler = await this.scheduleRepository
+      .createQueryBuilder('scheduler')
+      .where('scheduler.id = :scheduleId', { scheduleId: scheduleId })
+      .leftJoinAndSelect('scheduler.tasks', 'task')
+      .leftJoinAndSelect('task.userTasks', 'userTask')
+      .where('userTask.month = :month and scheduler.id = :scheduleId', {
+        month: month,
+        scheduleId: scheduleId,
+      })
+      .getMany();
+    console.log('SCHEDULER ', scheduler);
+    return scheduler;
   }
 
   async findOneTask(taskId: number): Promise<Task> {
