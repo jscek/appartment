@@ -15,6 +15,8 @@ export class LoginPageComponent implements OnInit {
   loginEmail: string;
   loginPassword: string;
 
+  registerEmail: string;
+  registerName: string;
   registerPassword: string;
   registerConfirmPassword: string;
 
@@ -50,12 +52,23 @@ export class LoginPageComponent implements OnInit {
   }
 
   register(): void {
-    // TODO: register user
     if (this.validateData() == false) {
       this._snackBar.open('Filled passwords are not the same!', 'Close', {
         duration: 3000,
       });
     } else {
+      this.authService
+        .register(this.registerEmail, this.registerPassword, this.registerName)
+        .pipe(first())
+        .subscribe((data) => {
+          this.authService
+            .login(this.registerEmail, this.registerPassword)
+            .pipe(first())
+            .subscribe((data) => {
+              this.router.navigateByUrl(this.returnUrl);
+            });
+        });
+
       this._snackBar.open('Successfully registered!', 'Close', {
         duration: 3000,
       });
