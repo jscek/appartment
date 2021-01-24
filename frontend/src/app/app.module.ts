@@ -1,20 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatCardModule} from '@angular/material/card';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatInputModule} from '@angular/material/input';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {FormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ import { ProductRowComponent } from './components/user-pages/shopping-page/produ
 import { RankingRowComponent } from './components/user-pages/ranking-page/ranking-row/ranking-row.component';
 import { KingCrownComponent } from './components/atoms/king-crown/king-crown.component';
 import { JoiningPopupComponent } from './components/user-pages/flats-page/joining-popup/joining-popup.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,7 @@ import { JoiningPopupComponent } from './components/user-pages/flats-page/joinin
     ProductRowComponent,
     RankingRowComponent,
     KingCrownComponent,
-    JoiningPopupComponent
+    JoiningPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,9 +83,12 @@ import { JoiningPopupComponent } from './components/user-pages/flats-page/joinin
     MatDialogModule,
     MatSnackBarModule,
     DragDropModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
