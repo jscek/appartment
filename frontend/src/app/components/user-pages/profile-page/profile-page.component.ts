@@ -5,6 +5,8 @@ import {NotePopupComponent} from '../profile-page/note-popup/note-popup.componen
 import {UserStructure} from 'src/app/models/userStructures'
 import {NoteStructure} from 'src/app/models/noteStructures'
 import {NotesService} from 'src/app/services/notes.service'
+import {ProfileService} from 'src/app/services/profile.service'
+import {FlatsService} from 'src/app/services/flats.service'
 
 @Component({
   selector: 'app-profile-page',
@@ -19,23 +21,40 @@ export class ProfilePageComponent implements OnInit {
   flatUsers: UserStructure[] = [];
   flatNotes: NoteStructure[] = [];
 
-  userData: UserStructure;
+  userData: UserStructure = {
+    id: 1,
+    email: "",
+    name: "",
+    avatar: null,
+    score: 0
+  };
 
-  constructor(public dialog: MatDialog, private notesService: NotesService) { }
+  constructor(public dialog: MatDialog, 
+              private flatsService: FlatsService,
+              private profileService: ProfileService,
+              private notesService: NotesService) { }
 
   ngOnInit(): void {
-    this.userData = {
-      id: 1,
-      email: "jankos1195@gmail.com",
-      name: "Janek",
-      avatar: null,
-      score: 1500
-    };
+    this.profileService.currentUserData.subscribe(
+      (user) => {
+        if(!user) {
+          return
+        }
+        this.userData= user;
+        this.imgData = this.userData.avatar;
+        if (this.imgData == null) {
+          this.imgData = this.defaultImgPath;
+        }
+      }
+    );
+    this.flatsService.currentFlat.subscribe(
+      (flat) => {
+        if (!flat) {
+          return
+        }
+        this.flatUsers = flat.users;
+      });
     this.notesService.currentNotes.subscribe((notes) => (this.flatNotes = notes));
-    this.imgData = this.userData.avatar;
-    if (this.imgData == null) {
-      this.imgData = this.defaultImgPath;
-    }
 
   }
 
@@ -51,12 +70,10 @@ export class ProfilePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
         if (result.name != this.userData.name) {
-          this.userData.name = result.name;
+          this.profileService.updateName(this.userData.id,result.name)
         }
         if (result.avatar != "") {
-          this.userData.avatar = result.avatar;
-          this.imgData = result.avatar;
-          // TODO: UPDATE USER IN DATABASE
+          this.profileService.updateAvatar(this.userData.id,result.avatar)
         }
       }
     });

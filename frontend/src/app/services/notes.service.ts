@@ -19,7 +19,7 @@ export class NotesService {
 
   flat: FlatStructure = null;
 
-  constructor(private http: HttpClient, private authService: AuthService, private flatsService: FlatsService) {
+  constructor(private http: HttpClient, private flatsService: FlatsService) {
     this.flatsService.currentFlat.subscribe((flat) => {
       if (!flat) {
         return
