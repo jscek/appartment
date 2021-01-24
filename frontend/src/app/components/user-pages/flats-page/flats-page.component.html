@@ -2,38 +2,37 @@
     fxLayoutGap="20px" fxLayoutAlign="center">
     <div fxFlex="80%">
         <app-page-card style="padding: 15px">
-            <mat-card-title style="margin:5px; margin-bottom: 30px">Your flat:</mat-card-title>
+            <mat-card-title *ngIf="flatExists()" style="margin:5px; margin-bottom: 30px">Flat name: {{ flat.name }}</mat-card-title>
             <mat-card-content fxLayout="column" fxLayoutWrap
                 fxLayoutGap="20px" fxLayoutAlign="center">
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
                     fxLayoutGap="20px" fxLayoutAlign="center">
                     
-                    <button *ngIf="!flatCodeExists()" mat-stroked-button cdkFocusInitial class="flat-button">
+                    <button *ngIf="!flatExists()" mat-stroked-button cdkFocusInitial (click)="openCreatingDialog()" class="flat-button">
                         {{"create flat" | uppercase}}
                     </button>
-                    <button *ngIf="!flatCodeExists()" mat-stroked-button color="accent" (click)="openJoiningDialog()" class="flat-button">
+                    <button *ngIf="!flatExists()" mat-stroked-button color="accent" (click)="openJoiningDialog()" class="flat-button">
                         {{"join flat" | uppercase}}
                     </button>
          
-                    <div *ngIf="flatCodeExists()" fxLayout="column" fxLayoutAlign="center">
-                        <mat-card-subtitle style="margin:5px">Your shareing code:</mat-card-subtitle>
-                        <h1>{{flatCode}}</h1>
+                    <div *ngIf="flatExists()" fxLayout="column" fxLayoutAlign="center">
+                        <mat-card-subtitle style="margin:5px">Your sharing code:</mat-card-subtitle>
+                        <h1>{{flat.code}}</h1>
                     </div>
                 </div>
                 
-                <div *ngIf="!flatCodeExists()" class="mates-card" fxLayout="column" fxLayoutWrap>
+                <div *ngIf="!flatExists()" class="mates-card" fxLayout="column" fxLayoutWrap>
                     <div style="margin-bottom: 2px; font-size: large">You dont have ant flatmates. Create your own flat and invite friends or join to another flat!</div>
                 </div>
 
-                <div *ngIf="flatCodeExists()" class="mates-card" fxLayout="column" fxLayoutWrap>
-                    <div style="margin-bottom: 2px; font-size: large">Flatmates:</div>
-                    <mat-card-subtitle style="margin:0">Jacex Polsa</mat-card-subtitle>
-                    <mat-card-subtitle style="margin:0">Mefju Szecynpol</mat-card-subtitle>
+                <div *ngIf="flatExists()" class="mates-card" fxLayout="column" fxLayoutWrap>
+                    <div style="margin-bottom: 2px; font-size: large">Members:</div>
+                        <mat-card-subtitle *ngFor="let member of this.flatMembers()" style="margin:0">{{ member }}</mat-card-subtitle>
                 </div>
             </mat-card-content>
             
-            <div *ngIf="flatCodeExists()" style="margin-top: 120px" fxLayout="row" fxLayoutAlign="end">
+            <div *ngIf="flatExists()" style="margin-top: 120px" fxLayout="row" fxLayoutAlign="end">
                 <button mat-button cdkFocusInitial color="warn" (click)="leaveFlat()">
                     LEAVE FLAT
                 </button>

@@ -44,6 +44,11 @@ export class UsersService {
     return;
   }
 
+  async findFlat(id: number): Promise<Flat> {
+    const user = await this.usersRepository.findOne(id, { relations: ['flat'] });
+    return user.flat;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
     return this.usersRepository.update(id, updateUserDto);
   }
