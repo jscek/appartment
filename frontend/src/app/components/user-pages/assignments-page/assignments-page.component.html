@@ -1,1 +1,60 @@
-<p>assignments-page works!</p>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+    fxLayoutGap="20px" fxLayoutAlign="center">
+    <div fxFlex="80%">
+        <app-page-card style="padding: 15px">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+                fxLayoutGap="20px" fxLayoutAlign="begin">
+                <div fxFlex="75%">
+                    <mat-card-title style="margin:5px; margin-bottom: 30px">Schedule:</mat-card-title>
+                </div>
+                <div fxLayoutAlign="end" fxFlex="25%">
+
+                    <mat-form-field appearance="fill">
+                    <mat-label> {{getDate()}} </mat-label>
+                        <input matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi 
+                                        #picker
+                                        startView="multi-year"
+                                        (monthSelected)="datepickerEvent($event)">
+                        </mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
+            fxLayoutGap="20px" fxLayoutAlign="begin">
+                <mat-form-field fxFlex="80%" style="margin: 10px;">
+                    <mat-label>Add new task</mat-label>
+                    <input matInput type="text" name="newTask" placeholder="New Task" [(ngModel)]="newTask">
+                </mat-form-field>
+                <mat-form-field fxFlex="60px"  style="margin: 10px;">
+                    <mat-label>Points</mat-label>
+                    <input matInput type="number" name="addPoints" placeholder="Points" [(ngModel)]="newTaskPoints">
+                </mat-form-field>
+                <button mat-button color="accent" (click)="addNewTask()">Add</button>
+            </div>
+
+            <table mat-table [dataSource]="dataToDisplay" class="mat-elevation-z8">
+                <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay">
+                  <th mat-header-cell [ngClass]="{'basicCell': column.toString() != 'Tasks'}" *matHeaderCellDef> 
+                        {{column}} 
+                    </th>
+                  <td mat-cell [ngClass]="{'basicCell': column.toString() != 'Tasks'}" *matCellDef="let element">
+                      <div class="taskCell" *ngIf="column.toString() == 'Tasks'">
+                        {{element[column]}}
+                      </div>
+                      <div class="tableCell" 
+                            [ngClass]="{'done': getCellValue(element[column].userId) == true, 'assigned': getCellValue(element[column].userId) == false}" 
+                            *ngIf="column.toString() != 'Tasks'" (click)="updateUserTaskData(element[column].userId, column, element[column].taskId)">
+                      </div>
+                  </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+            </table>
+
+        </app-page-card>
+    </div>
+</div>
