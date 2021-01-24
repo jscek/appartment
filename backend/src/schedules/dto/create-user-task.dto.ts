@@ -3,7 +3,10 @@ import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateUserTaskDto {
   @IsNotEmpty()
   @IsNumber()
-  readonly week: number;
+  readonly month: number;
+
+  @IsNumber()
+  readonly day: number;
 
   @IsBoolean()
   @IsNotEmpty()
