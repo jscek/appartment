@@ -7,15 +7,15 @@
                 fxLayoutAlign="center" style="margin-top: 20px; font-size: 18px">
 
                 <div *ngIf="flat">
-                    <app-ranking-row [place]="1" [points]="usersSortedByScore[0].score">
+                    <app-ranking-row *ngIf="usersSortedByScore.length!=0" [place]="1" [points]="usersSortedByScore[0].score">
                         {{ usersSortedByScore[0].name }}
                     </app-ranking-row>
     
-                    <app-ranking-row [place]="2" [points]="usersSortedByScore[1].score">
+                    <app-ranking-row *ngIf="usersSortedByScore.length>=1" [place]="2" [points]="usersSortedByScore[1].score">
                         {{ usersSortedByScore[1].name }}
                     </app-ranking-row>
     
-                    <app-ranking-row [place]="3" [points]="usersSortedByScore[2].score">
+                    <app-ranking-row *ngIf="usersSortedByScore.length>=2" [place]="3" [points]="usersSortedByScore[2].score">
                         {{ usersSortedByScore[2].name }}
                     </app-ranking-row>
                 </div>

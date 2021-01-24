@@ -9,7 +9,7 @@ import { FlatsService } from 'src/app/services/flats.service';
   styleUrls: ['./ranking-page.component.css'],
 })
 export class RankingPageComponent implements OnInit {
-  usersSortedByScore: UserStructure[];
+  usersSortedByScore: UserStructure[] = [];
   flat: FlatStructure = null;
   points: number[] = [];
 
@@ -24,7 +24,7 @@ export class RankingPageComponent implements OnInit {
       this.flat = flat;
       let usersSorted = flat.users;
       usersSorted.sort((u1, u2) => u2.score - u1.score);
-      this.usersSortedByScore = usersSorted.splice(0, 3);
+      // this.usersSortedByScore = usersSorted.splice(0, 3);
     });
   }
 }
