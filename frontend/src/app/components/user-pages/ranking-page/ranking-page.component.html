@@ -5,19 +5,20 @@
             <mat-card-title style="margin:5px">Leaderboard:</mat-card-title>
             <mat-card-content class="container" fxLayout="row" fxLayout.xs="column" 
                 fxLayoutAlign="center" style="margin-top: 20px; font-size: 18px">
-                
-                <app-ranking-row [place]="1" [points]="1500">
-                    Jan Kosiński
-                </app-ranking-row>
 
-                <app-ranking-row [place]="2" [points]="1200">
-                    Jaca Polex
-                </app-ranking-row>
-
-                <app-ranking-row [place]="3" [points]="1000">
-                    Szecyn Pol
-                </app-ranking-row>
-
+                <div *ngIf="flat">
+                    <app-ranking-row *ngIf="usersSortedByScore.length!=0" [place]="1" [points]="usersSortedByScore[0].score">
+                        {{ usersSortedByScore[0].name }}
+                    </app-ranking-row>
+    
+                    <app-ranking-row *ngIf="usersSortedByScore.length>=1" [place]="2" [points]="usersSortedByScore[1].score">
+                        {{ usersSortedByScore[1].name }}
+                    </app-ranking-row>
+    
+                    <app-ranking-row *ngIf="usersSortedByScore.length>=2" [place]="3" [points]="usersSortedByScore[2].score">
+                        {{ usersSortedByScore[2].name }}
+                    </app-ranking-row>
+                </div>
             </mat-card-content>
         </app-page-card>
     </div>     
