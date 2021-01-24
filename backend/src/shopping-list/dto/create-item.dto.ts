@@ -8,7 +8,4 @@ export class CreateItemDto {
   @IsBoolean()
   @IsNotEmpty()
   readonly bought: boolean;
-
-  @IsNumber()
-  readonly user_id: number;
 }

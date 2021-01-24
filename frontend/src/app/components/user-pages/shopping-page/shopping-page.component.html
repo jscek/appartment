@@ -4,20 +4,14 @@
         <app-page-card>
             <mat-card-title style="margin:5px">Shopping list:</mat-card-title>
             <mat-form-field style="width: 80%; margin: 10px;">
-                <mat-label>Add new product</mat-label>
-                <input matInput type="text" name="newProduct" placeholder="New Product">
+                <mat-label>Add new item</mat-label>
+                <input [(ngModel)]="itemName" matInput type="text" name="newItem" placeholder="New Item">
             </mat-form-field>
-                <button mat-button color="accent">Add</button>
+                <button (click)="addItem()" mat-button color="accent">Add</button>
             <mat-card-content style="margin-top: 10px;">
-
-                <app-product-row>
-                    dupa dupa
-                </app-product-row>
-
-                <app-product-row>
-                    dupa dupa
-                </app-product-row>
-
+                <div *ngFor="let item of items$ | async">
+                    <app-product-row (checkItem)="onCheckItem($event)" (deleteItem)="onDeleteItem($event)" [item]="item"></app-product-row>
+                </div>
             </mat-card-content>
         </app-page-card>
     </div>     
