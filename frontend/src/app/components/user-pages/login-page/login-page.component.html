@@ -31,13 +31,13 @@
                             <mat-card-content style="height: 220px;">
                               <div>
                                 <mat-form-field class="full-width">
-                                  <input matInput type="email" name="registerDataEmail" placeholder="Email">
+                                  <input [(ngModel)]="registerEmail" matInput type="email" name="registerDataEmail" placeholder="Email">
                                 </mat-form-field>
                               </div>
 
                               <div>
                               <mat-form-field class="full-width">
-                                <input matInput type="email" name="registerName" placeholder="Your Name">
+                                <input [(ngModel)]="registerName" matInput name="registerName" placeholder="Your Name">
                               </mat-form-field>
                               </div>
                       

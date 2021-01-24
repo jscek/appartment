@@ -57,6 +57,20 @@ export class AuthService {
       );
   }
 
+  register(email: string, password: string, name: string) {
+    return this.http
+      .post<UserStructure>(`${environment.baseUrl}/auth/register`, {
+        email,
+        password,
+        name,
+      })
+      .pipe(
+        map((res) => {
+          this.login(email, password);
+        })
+      );
+  }
+
   private setSession(tokenResponse: TokenResponse): void {
     const expiresAt = moment().add(tokenResponse.expiresIn, 'second');
 
