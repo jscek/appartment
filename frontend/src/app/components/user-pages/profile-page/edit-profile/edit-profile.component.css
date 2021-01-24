@@ -6,14 +6,14 @@
 }
 
 .file-upload {
-  background-color:#2590EB;
+  background-color:white;
   transition: all 1s;
-  color: #FFFFFF;
+  color: #2590EB;
 }
 
 .file-upload:hover {
-  background-color: white;
-  color: #2590EB;
+  background-color: #2590EB;
+  color: white;
 }
 
 .file-upload-success {

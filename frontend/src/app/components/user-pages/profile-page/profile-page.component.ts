@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EditProfileComponent} from '../profile-page/edit-profile/edit-profile.component'
 import {NotePopupComponent} from '../profile-page/note-popup/note-popup.component'
+import {UserStructure} from 'src/app/models/userStructures'
+import {NoteStructure} from 'src/app/models/noteStructures'
+import {NotesService} from 'src/app/services/notes.service'
+import {ProfileService} from 'src/app/services/profile.service'
+import {FlatsService} from 'src/app/services/flats.service'
 
 @Component({
   selector: 'app-profile-page',
@@ -10,27 +15,96 @@ import {NotePopupComponent} from '../profile-page/note-popup/note-popup.componen
 })
 export class ProfilePageComponent implements OnInit {
 
-  img_file: string = "https://scontent-waw1-1.xx.fbcdn.net/v/t31.0-8/30420102_1788124121266457_3171397161646616647_o.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=Se8wCydwv4QAX8KDyJf&_nc_ht=scontent-waw1-1.xx&oh=c5c1df13f3cb6198cb6037cbb96eac26&oe=602ADB04"
+  private defaultImgPath: string = "../../../assets/default_avatar.png";
+  private imgData: string = null;
+  
+  flatUsers: UserStructure[] = [];
+  flatNotes: NoteStructure[] = [];
 
-  constructor(public dialog: MatDialog) { }
+  userData: UserStructure = {
+    id: 1,
+    email: "",
+    name: "",
+    avatar: null,
+    score: 0
+  };
+
+  constructor(public dialog: MatDialog, 
+              private flatsService: FlatsService,
+              private profileService: ProfileService,
+              private notesService: NotesService) { }
 
   ngOnInit(): void {
+    this.profileService.currentUserData.subscribe(
+      (user) => {
+        if(!user) {
+          return
+        }
+        this.userData= user;
+        this.imgData = this.userData.avatar;
+        if (this.imgData == null) {
+          this.imgData = this.defaultImgPath;
+        }
+      }
+    );
+    this.flatsService.currentFlat.subscribe(
+      (flat) => {
+        if (!flat) {
+          return
+        }
+        this.flatUsers = flat.users;
+      });
+    this.notesService.currentNotes.subscribe((notes) => (this.flatNotes = notes));
+
+  }
+
+  getImg(): string {
+    return this.imgData;
   }
 
   openEditDialog(): void {
-    const dialogRef = this.dialog.open(EditProfileComponent, {});
+    const dialogRef = this.dialog.open(EditProfileComponent, {
+      data: {name: this.userData.name}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result != null) {
+        if (result.name != this.userData.name) {
+          this.profileService.updateName(this.userData.id,result.name)
+        }
+        if (result.avatar != "") {
+          this.profileService.updateAvatar(this.userData.id,result.avatar)
+        }
+      }
     });
   }
 
-  openNoteDialog(): void {
-    const dialogRef = this.dialog.open(NotePopupComponent, {});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  openNoteDialog(editNote: NoteStructure = null): void {
+    if (editNote == null) {
+      const dialogRef = this.dialog.open(NotePopupComponent, {
+        data: {id: editNote}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null) {
+          if (result.action == "SAVE") {
+            this.notesService.create(result.data.title, result.data.description)
+          }
+        }
+      });
+    } else {
+      const dialogRef = this.dialog.open(NotePopupComponent, {
+        data: {id: editNote.id, title: editNote.title, description: editNote.description}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null) {
+          if (result.action == "SAVE") {
+            this.notesService.update(result.data.id, result.data.title, result.data.description);
+          } else if (result.action == "DELETE") {
+            this.notesService.delete(result.data.id);
+          }
+        }
+      });
+    }
   }
 
 }

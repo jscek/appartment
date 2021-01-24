@@ -1,5 +1,6 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import { Component, ViewChild, ElementRef, OnInit, Inject} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {EditUserStructure} from 'src/app/models/userStructures'
 
 @Component({
   selector: 'app-edit-profile',
@@ -11,13 +12,19 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('uploadFile') myInputFileVariable: ElementRef;
   private maxImgBytes: number = 1048487;
 
-  img: string = "";
   fileStatusTag: string = "NONE"; 
   fileStatus: string = "";
+  editUserValues: EditUserStructure;
 
-  constructor(public dialogRef: MatDialogRef<EditProfileComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<EditProfileComponent>,
+    @Inject(MAT_DIALOG_DATA) public userData: any) { }
 
   ngOnInit(): void {
+    this.editUserValues = {
+      name: this.userData.name,
+      avatar: ""
+    };
   }
 
   onSelectFile(event) {
@@ -30,11 +37,11 @@ export class EditProfileComponent implements OnInit {
         this.myInputFileVariable.nativeElement.value = "";
         const byteSize = new Blob([imgValue]).size;
         if (byteSize > this.maxImgBytes) {
-          this.img = null;
+          this.editUserValues.avatar = "";
           this.fileStatus = "File upload has failed! The file can't be larger than 1MB."
           this.fileStatusTag = "FAIL"
         } else {
-          this.img = imgValue; 
+          this.editUserValues.avatar = imgValue;
           this.fileStatus = "File transfer was successful!"
           this.fileStatusTag = "DONE"
         }
