@@ -33,7 +33,8 @@ export class FlatsService {
     const noteBoard = await this.noteService.createBoard(newFlat);
     await this.flatsRepository.update(newFlat.id, { shoppingList, noteBoard, schedule });
     await this.usersService.addToFlat(user.id, newFlat);
-    return newFlat;
+
+    return this.flatsRepository.findOne(newFlat.id, { relations: ['users'] });
   }
 
   findOne(id: number) {

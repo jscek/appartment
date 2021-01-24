@@ -51,8 +51,7 @@ export class FlatsService {
       })
       .pipe(
         tap((flat) => {
-          const newFlat = { ...flat, users: [] };
-          this._currentFlat.next(newFlat);
+          this._currentFlat.next(flat);
         })
       );
   }
