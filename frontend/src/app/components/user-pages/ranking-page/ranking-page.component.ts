@@ -24,7 +24,8 @@ export class RankingPageComponent implements OnInit {
       this.flat = flat;
       let usersSorted = flat.users;
       usersSorted.sort((u1, u2) => u2.score - u1.score);
-      // this.usersSortedByScore = usersSorted.splice(0, 3);
+      console.log(usersSorted.length);
+      this.usersSortedByScore = usersSorted.splice(0, 3);
     });
   }
 }
