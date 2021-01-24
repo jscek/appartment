@@ -1,38 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {JoiningPopupComponent} from '../flats-page/joining-popup/joining-popup.component'
+import { MatDialog } from '@angular/material/dialog';
+import { FlatStructure } from 'src/app/models/flatStructure';
+import { FlatsService } from 'src/app/services/flats.service';
+import { CreatingPopupComponent } from './creating-popup/creating-popup.component';
+import { JoiningPopupComponent } from './joining-popup/joining-popup.component';
 
 @Component({
   selector: 'app-flats-page',
   templateUrl: './flats-page.component.html',
-  styleUrls: ['./flats-page.component.css']
+  styleUrls: ['./flats-page.component.css'],
 })
 export class FlatsPageComponent implements OnInit {
+  flat: FlatStructure = null;
 
-  flatCode: string = "";
-
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private flatsService: FlatsService) {}
 
   ngOnInit(): void {
+    this.flatsService.currentFlat.subscribe((flat) => (this.flat = flat));
   }
 
-  flatCodeExists(): boolean {
-    if (this.flatCode == "") {
-      return false;
-    } 
-    return true;
+  flatExists(): boolean {
+    if (this.flat) {
+      return true;
+    }
+
+    return false;
+  }
+
+  flatMembers(): string[] {
+    if (this.flat) {
+      return this.flat.users.map((user) => user.name);
+    }
+
+    return [];
   }
 
   openJoiningDialog(): void {
     const dialogRef = this.dialog.open(JoiningPopupComponent, {});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 
-  leaveFlat(): void {
-
+  openCreatingDialog(): void {
+    const dialogRef = this.dialog.open(CreatingPopupComponent, {});
   }
 
+  leaveFlat(): void {}
 }

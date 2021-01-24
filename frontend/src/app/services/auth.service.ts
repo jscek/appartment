@@ -33,7 +33,14 @@ export class AuthService {
   public currentUser: Observable<UserStructure>;
 
   constructor(private http: HttpClient) {
-    this._currentUser = new BehaviorSubject<UserStructure>(undefined);
+    let loggedUser = null;
+
+    if (this.isLoggedIn()) {
+      const token = this.getToken();
+      loggedUser = this.getUserFromToken(token);
+    }
+
+    this._currentUser = new BehaviorSubject<UserStructure>(loggedUser);
     this.currentUser = this._currentUser.asObservable();
   }
 
@@ -46,11 +53,7 @@ export class AuthService {
       .pipe(
         map((res) => {
           this.setSession(res);
-          const { sub, exp, iat, ...userInfo } = decode(
-            res.accessToken
-          ) as DecodedAccessToken;
-
-          const user: UserStructure = { id: sub, ...userInfo };
+          const user = this.getUserFromToken(res.accessToken);
           this._currentUser.next(user);
           return user;
         })
@@ -58,17 +61,14 @@ export class AuthService {
   }
 
   register(email: string, password: string, name: string) {
-    return this.http
-      .post<UserStructure>(`${environment.baseUrl}/auth/register`, {
+    return this.http.post<UserStructure>(
+      `${environment.baseUrl}/auth/register`,
+      {
         email,
         password,
         name,
-      })
-      .pipe(
-        map((res) => {
-          this.login(email, password);
-        })
-      );
+      }
+    );
   }
 
   private setSession(tokenResponse: TokenResponse): void {
@@ -78,9 +78,19 @@ export class AuthService {
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
+  private getUserFromToken(accessToken: string): UserStructure {
+    const { sub, exp, iat, ...userInfo } = decode(
+      accessToken
+    ) as DecodedAccessToken;
+
+    const user: UserStructure = { id: sub, ...userInfo };
+    return user;
+  }
+
   logout(): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('expires_at');
+    this._currentUser.next(null);
   }
 
   public isLoggedIn(): boolean {

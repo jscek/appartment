@@ -44,6 +44,7 @@ import { RankingRowComponent } from './components/user-pages/ranking-page/rankin
 import { KingCrownComponent } from './components/atoms/king-crown/king-crown.component';
 import { JoiningPopupComponent } from './components/user-pages/flats-page/joining-popup/joining-popup.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CreatingPopupComponent } from './components/user-pages/flats-page/creating-popup/creating-popup.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     RankingRowComponent,
     KingCrownComponent,
     JoiningPopupComponent,
+    CreatingPopupComponent,
   ],
   imports: [
     BrowserModule,
