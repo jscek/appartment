@@ -2,7 +2,8 @@ export interface NoteStructure {
     id: number;
     title: string;
     description: string;
-    created_at: string;
+    createdAt: string;
+    updatedAt: string;
     user_name: string;
 }
 

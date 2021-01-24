@@ -4,6 +4,7 @@ import {EditProfileComponent} from '../profile-page/edit-profile/edit-profile.co
 import {NotePopupComponent} from '../profile-page/note-popup/note-popup.component'
 import {UserStructure} from 'src/app/models/userStructures'
 import {NoteStructure} from 'src/app/models/noteStructures'
+import {NotesService} from 'src/app/services/notes.service'
 
 @Component({
   selector: 'app-profile-page',
@@ -20,26 +21,9 @@ export class ProfilePageComponent implements OnInit {
 
   userData: UserStructure;
 
-  u1: UserStructure = {
-    id: 1,
-    email: "jankos1195@gmail.com",
-    name: "Jaca Praca",
-    avatar: null,
-    score: 300
-  }
-
-  u2: UserStructure = {
-    id: 1,
-    email: "jankos1195@gmail.com",
-    name: "Matiax Połeć",
-    avatar: null,
-    score: 200
-  }
-
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private notesService: NotesService) { }
 
   ngOnInit(): void {
-
     this.userData = {
       id: 1,
       email: "jankos1195@gmail.com",
@@ -47,13 +31,12 @@ export class ProfilePageComponent implements OnInit {
       avatar: null,
       score: 1500
     };
-
+    this.notesService.currentNotes.subscribe((notes) => (this.flatNotes = notes));
     this.imgData = this.userData.avatar;
     if (this.imgData == null) {
       this.imgData = this.defaultImgPath;
     }
 
-    this.flatUsers.push(this.u1,this.u2);
   }
 
   getImg(): string {
@@ -87,14 +70,7 @@ export class ProfilePageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result != null) {
           if (result.action == "SAVE") {
-            let newNote: NoteStructure = {
-              id: 10,
-              title: result.data.title,
-              description: result.data.description,
-              created_at: "2021-01-21",
-              user_name: this.userData.name
-            };
-            this.flatNotes.push(newNote);
+            this.notesService.create(result.data.title, result.data.description)
           }
         }
       });
@@ -105,11 +81,9 @@ export class ProfilePageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result != null) {
           if (result.action == "SAVE") {
-            let idx = this.flatNotes.findIndex(obj => obj.id == result.data.id);
-            this.flatNotes[idx].title = result.data.title;
-            this.flatNotes[idx].description = result.data.description;
+            this.notesService.update(result.data.id, result.data.title, result.data.description);
           } else if (result.action == "DELETE") {
-            this.flatNotes = this.flatNotes.filter(obj => obj.id != result.data.id);
+            this.notesService.delete(result.data.id);
           }
         }
       });
