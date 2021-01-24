@@ -1,0 +1,7 @@
+.item-bought {
+    text-decoration: line-through;
+    color: green
+}
+
+.item-not-bought {
+}

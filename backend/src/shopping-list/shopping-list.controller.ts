@@ -1,15 +1,32 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ShoppingListService } from './shopping-list.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { request } from 'express';
 
 @Controller('shopping-list')
 export class ShoppingListController {
   constructor(private readonly shoppingListService: ShoppingListService) {}
 
   @Post(':listId')
-  async createItem(@Param('listId') listId: number, @Body() createItemDto: CreateItemDto) {
-    return this.shoppingListService.createItem(listId, createItemDto);
+  @UseGuards(JwtAuthGuard)
+  async createItem(
+    @Request() req,
+    @Param('listId') listId: number,
+    @Body() createItemDto: CreateItemDto,
+  ) {
+    return this.shoppingListService.createItem(listId, createItemDto, req.user);
   }
 
   @Get(':listId/items')
@@ -33,6 +50,7 @@ export class ShoppingListController {
   }
 
   @Patch('items/:itemId')
+  @UseGuards(JwtAuthGuard)
   async updateItem(@Param('itemId') itemId: number, @Body() updateItemDto: UpdateItemDto) {
     return this.shoppingListService.updateItem(itemId, updateItemDto);
   }

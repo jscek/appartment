@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Flat } from 'src/flats/entities/flat.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
@@ -21,13 +22,12 @@ export class ShoppingListService {
     return this.shoppingListRepository.save(shoppingL);
   }
 
-  async createItem(listId: number, createItemDto: CreateItemDto): Promise<Item> {
+  async createItem(listId: number, createItemDto: CreateItemDto, user: User): Promise<Item> {
     const listSh = await this.shoppingListRepository.findOne(listId);
-    console.log('List Id', listId, ' and list: ', listSh);
     if (!listSh) {
       throw new NotFoundException(`ShoppingLIst #${listId} not found`);
     }
-    const item = this.itemRepository.create({ shoppingList: listSh, ...createItemDto });
+    const item = this.itemRepository.create({ shoppingList: listSh, user, ...createItemDto });
     return this.itemRepository.save(item);
   }
 
@@ -59,9 +59,9 @@ export class ShoppingListService {
 
   async updateItem(itemId: number, updateItemDto: UpdateItemDto): Promise<Item> {
     console.log('Updating item: ', updateItemDto);
-    const item = await this.findOneItem(itemId);
+    await this.itemRepository.update(itemId, { ...updateItemDto });
 
-    return this.itemRepository.save({ id: itemId, ...updateItemDto });
+    return this.findOneItem(itemId);
   }
 
   async removeItem(itemId: number): Promise<void> {
