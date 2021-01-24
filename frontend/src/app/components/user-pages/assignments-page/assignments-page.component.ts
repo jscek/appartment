@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import {MatDatepicker} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-assignments-page',
@@ -8,6 +9,7 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 })
 export class AssignmentsPageComponent implements OnInit {
 
+  @ViewChild('picker') datePickerElement: MatDatepicker<any>;
   choosenDate: string = "";
 
   constructor() { }
@@ -15,8 +17,10 @@ export class AssignmentsPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.choosenDate = event.value.toString();
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    console.log(event);
+    // this.datePickerElement.select(event);
+    this.datePickerElement.close();
   }
 
 }

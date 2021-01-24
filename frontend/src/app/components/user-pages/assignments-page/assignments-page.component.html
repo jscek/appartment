@@ -8,12 +8,18 @@
                     <mat-card-title style="margin:5px; margin-bottom: 30px">Schedule:</mat-card-title>
                 </div>
                 <div fxLayoutAlign="end" fxFlex="25%">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker" (dateChange)="addEvent('change', $event)">
+
+                    <mat-form-field appearance="fill">
+                    <mat-label> {{"2/2021"}} </mat-label>
+                        <input matInput [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker touchUi #picker></mat-datepicker>
+                        <mat-datepicker touchUi 
+                                        #picker
+                                        startView="multi-year"
+                                        (monthSelected)="addEvent($event)">
+                        </mat-datepicker>
                     </mat-form-field>
+
                 </div>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap
