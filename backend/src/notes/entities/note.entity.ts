@@ -21,6 +21,9 @@ export class Note {
   @Column({ type: 'varchar', length: 300 })
   description: string;
 
+  @Column({ type: 'varchar', nullable: false })
+  user_name: string;
+
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
