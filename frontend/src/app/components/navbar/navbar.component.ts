@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { FlatsService } from 'src/app/services/flats.service'
 
 @Component({
   selector: 'app-navbar',
@@ -17,9 +18,13 @@ export class NavbarComponent implements OnInit {
     '/ranking',
   ];
 
-  constructor(private router: Router, private authService: AuthService) {}
+  flat = null;
 
-  ngOnInit(): void {}
+  constructor(private router: Router, private authService: AuthService, private flatsService: FlatsService) {}
+
+  ngOnInit(): void {
+    this.flatsService.currentFlat.subscribe((flat) => (this.flat = flat));
+  }
 
   getActualRoute() {
     return this.router.url;

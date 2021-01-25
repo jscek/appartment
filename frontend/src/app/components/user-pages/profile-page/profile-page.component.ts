@@ -29,6 +29,8 @@ export class ProfilePageComponent implements OnInit {
     score: 0
   };
 
+  flat = null;
+
   constructor(public dialog: MatDialog, 
               private flatsService: FlatsService,
               private profileService: ProfileService,
@@ -52,6 +54,7 @@ export class ProfilePageComponent implements OnInit {
         if (!flat) {
           return
         }
+        this.flat = flat;
         this.flatUsers = flat.users;
       });
     this.notesService.currentNotes.subscribe((notes) => (this.flatNotes = notes));

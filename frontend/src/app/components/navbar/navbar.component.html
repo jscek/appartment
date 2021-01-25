@@ -18,11 +18,11 @@
         <mat-icon [style]="checkIfActual('flats')">meeting_room</mat-icon>
         <span >Flats</span>
       </button>
-      <button mat-menu-item [style]="checkIfActual('assignments')" (click)="changePage('assignments')">
+      <button *ngIf="flat != null" mat-menu-item [style]="checkIfActual('assignments')" (click)="changePage('assignments')">
         <mat-icon [style]="checkIfActual('assignments')">assignment</mat-icon>
         <span >Assignments</span>
       </button>
-      <button mat-menu-item [style]="checkIfActual('shopping')" (click)="changePage('shopping')">
+      <button *ngIf="flat != null" mat-menu-item [style]="checkIfActual('shopping')" (click)="changePage('shopping')">
         <mat-icon [style]="checkIfActual('shopping')">shopping_bag</mat-icon>
         <span>Shopping</span>
       </button>
@@ -30,7 +30,7 @@
         <mat-icon [style]="checkIfActual('billings')">assessment</mat-icon>
         <span >Billings</span>
       </button> -->
-      <button mat-menu-item [style]="checkIfActual('ranking')" (click)="changePage('ranking')">
+      <button *ngIf="flat != null" mat-menu-item [style]="checkIfActual('ranking')" (click)="changePage('ranking')">
         <mat-icon [style]="checkIfActual('ranking')">moving</mat-icon>
         <span >Ranking</span>
       </button>
